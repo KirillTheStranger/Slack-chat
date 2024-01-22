@@ -1,6 +1,17 @@
 import { Formik, Field, Form } from 'formik';
+import loginPageAvatar from '../../assets/login_page_avatar.jpg';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 const Login = () => {
+  useEffect(() => {
+    const testRequest = async () => {
+      const data = await axios.get('/api/v1/data');
+      console.log(data);
+    };
+    testRequest();
+  }, []);
+
   const form = (
     <Formik initialValues={{ email: '', password: '' }} onSubmit>
       {() => (
@@ -23,9 +34,18 @@ const Login = () => {
   );
 
   const container = (
-    <div className="col-12 col-md-8 col-xxl-6">
-      <div className="card shadow-sm">
-        <div className="card-body row p-5">{form}</div>
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <div className="card shadow-sm">
+            <div className="card-body row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img src={loginPageAvatar} alt="Войти" className="rounded-circle" />
+              </div>
+              {form}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
