@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from './pages/Login/Login.jsx';
-import Home from './pages/Home/Home.jsx';
+import Login from './pages/Login.jsx';
+import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import { createContext, useState } from 'react';
 import NavBar from './containers/NavBar.jsx';

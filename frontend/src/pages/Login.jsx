@@ -3,7 +3,7 @@ import loginPageAvatar from '../../assets/login_page_avatar.jpg';
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../App';
+import { AuthContext } from '../App';
 
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);
@@ -15,7 +15,9 @@ const Login = () => {
   const handleLogin = async (values) => {
     setInvalidation(false);
     try {
-      const { data: { token } } = await axios.post('/api/v1/login', { ...values });
+      const {
+        data: { token },
+      } = await axios.post('/api/v1/login', { ...values });
       localStorage.setItem('token', token);
       setAuthStatus(true);
       navigate('/');

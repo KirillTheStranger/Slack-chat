@@ -1,5 +1,5 @@
-import { useGetChannelsQuery } from '../../api/HomeChannelsApi.js';
-import { useGetMessagesQuery } from '../../api/HomeMessagesApi.js';
+import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
+import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
 
 const Home = () => {
   const createChannel = (channel) => (
