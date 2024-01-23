@@ -8,19 +8,19 @@ import { AuthContext } from '../../App';
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);
 
-  const [isInvalid, setIsInvalid] = useState(false);
+  const [isInvalid, setInvalidation] = useState(false);
 
   const navigate = useNavigate();
 
   const handleLogin = async (values) => {
-    setIsInvalid(false);
+    setInvalidation(false);
     try {
       const { data: { token } } = await axios.post('/api/v1/login', { ...values });
       localStorage.setItem('token', token);
       setAuthStatus(true);
       navigate('/');
     } catch (error) {
-      setIsInvalid(true);
+      setInvalidation(true);
       setAuthStatus(false);
     }
   };
