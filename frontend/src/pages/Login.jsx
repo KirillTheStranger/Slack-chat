@@ -1,5 +1,5 @@
 import { Formik, Field, Form } from 'formik';
-import loginPageAvatar from '../assets/login_page_avatar.jpg';
+import avatar from '../assets/loginPage/avatar.jpg';
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -72,7 +72,7 @@ const Login = () => {
           <div className="card shadow-sm">
             <div className="card-body row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src={loginPageAvatar} alt="Войти" className="rounded-circle" />
+                <img src={avatar} alt="Войти" className="rounded-circle" />
               </div>
               {form}
             </div>
