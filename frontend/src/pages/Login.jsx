@@ -1,5 +1,5 @@
 import { Formik, Field, Form } from 'formik';
-import loginPageAvatar from '../../assets/login_page_avatar.jpg';
+import loginPageAvatar from '../assets/login_page_avatar.jpg';
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
