@@ -1,5 +1,6 @@
 import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
 import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
+import sendButtonImg from '../assets/homePage/sendButton.png';
 
 const Home = () => {
   const createChannel = (channel) => (
@@ -45,6 +46,16 @@ const Home = () => {
             </div>
             <div id="messages-box" className="chat-messages overflow-auto px-5">
               {messages && messages.map((message) => createMessage(message))}
+            </div>
+            <div className="mt-auto px-5 py-3">
+              <form noValidate className="py-1 border rounded-2">
+                <div className="input-group has-validation">
+                  <input type="text" name="body" aria-label="Новое сообщение" placeholder="Введите сообщение..." className="border-0 p-0 ps-2 form-control" />
+                  <button type="submit" className="btn btn-group-vertical">
+                    <img src={sendButtonImg} alt="Отправить сообщение" width="20" height="20" />
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
