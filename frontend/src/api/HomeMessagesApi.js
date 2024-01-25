@@ -34,4 +34,4 @@ export const homeMessagessApi = createApi({
   }),
 });
 
-export const { useGetMessagesQuery } = homeMessagessApi;
+export const { useGetMessagesQuery, useAddMessageMutation } = homeMessagessApi;
