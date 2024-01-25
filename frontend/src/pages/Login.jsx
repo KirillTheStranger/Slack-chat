@@ -15,10 +15,10 @@ const Login = () => {
   const handleLogin = async (values) => {
     setInvalidation(false);
     try {
-      const {
-        data: { token },
-      } = await axios.post('/api/v1/login', { ...values });
+      const { data: { token, username } } = await axios.post('/api/v1/login', { ...values });
       localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
+  
       setAuthStatus(true);
       navigate('/');
     } catch (error) {
