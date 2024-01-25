@@ -10,7 +10,11 @@ export const homeMessagessApi = createApi({
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({
-      query: () => '',
+      query: (token) => ({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
     }),
     addMessage: builder.mutation({
       query: (newMessage) => ({

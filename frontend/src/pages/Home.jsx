@@ -6,14 +6,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeChannel } from '../store/slices/app.js';
 import { Formik, Field } from 'formik';
 import { socket } from '../socket.js';
+import { useEffect } from 'react';
 
 const Home = () => {
   const dispatch = useDispatch();
   const { currentChannel, currentChannelId } = useSelector((state) => state.app);
 
   const [addMessage] = useAddMessageMutation();
-  const { data: channels } = useGetChannelsQuery();
-  const { data: messages, refetch: messageRefetch } = useGetMessagesQuery();
+  const { data: channels } = useGetChannelsQuery(localStorage.getItem('token'));
+  const { data: messages, refetch: messageRefetch } = useGetMessagesQuery(localStorage.getItem('token'));
+
+  useEffect(() => {
+    const handleNewMessage = (message) => {
+      messageRefetch();
+    };
+
+    socket.on('newMessage', handleNewMessage);
+
+    return () => {
+      socket.off('newMessage', handleNewMessage);
+    };
+  }, [messageRefetch]);
 
   const createChannel = (channel) => (
     <li className="nav-item w-100" key={channel.id}>
@@ -43,15 +56,10 @@ const Home = () => {
     return curChannelMessages;
   };
 
-  const addMessageHandler = (values, resetForm, channelId) => {
-    const { body } = values;
+  const addMessageHandler = (body, channelId, resetForm) => {
     const username = localStorage.getItem('username');
 
     addMessage({ body, channelId, username });
-    socket.on('newMessage', () => {
-      messageRefetch();
-    });
-
     resetForm();
   };
 
@@ -84,7 +92,7 @@ const Home = () => {
               {currentChannelMessages && currentChannelMessages.map((message) => createMessage(message))}
             </div>
             <div className="mt-auto px-5 py-3">
-              <Formik initialValues={{ body: '' }} onSubmit={(values, { resetForm }) => addMessageHandler(values, resetForm, currentChannelId)}>
+              <Formik initialValues={{ body: '' }} onSubmit={({ body }, { resetForm }) => addMessageHandler(body, currentChannelId, resetForm)}>
                 {({ values, handleSubmit }) => (
                   <form noValidate className="py-1 border rounded-2" onSubmit={handleSubmit}>
                     <div className="input-group has-validation">

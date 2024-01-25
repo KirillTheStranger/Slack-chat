@@ -10,7 +10,11 @@ export const homeChannelsApi = createApi({
   }),
   endpoints: (builder) => ({
     getChannels: builder.query({
-      query: () => '',
+      query: (token) => ({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
     }),
     addChannel: builder.mutation({
       query: (newChannel) => ({
