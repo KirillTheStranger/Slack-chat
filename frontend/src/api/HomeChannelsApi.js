@@ -4,17 +4,15 @@ export const homeChannelsApi = createApi({
   reducerPath: 'channels',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1/channels',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    prepareHeaders: (headers, { getState }) => {
+      const token = localStorage.getItem('token');
+      headers.set('Authorization', `Bearer ${token}`);
+      return headers;
     },
   }),
   endpoints: (builder) => ({
     getChannels: builder.query({
-      query: (token) => ({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }),
+      query: () => '',
     }),
     addChannel: builder.mutation({
       query: (newChannel) => ({

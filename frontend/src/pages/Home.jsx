@@ -13,8 +13,8 @@ const Home = () => {
   const { currentChannel, currentChannelId } = useSelector((state) => state.app);
 
   const [addMessage] = useAddMessageMutation();
-  const { data: channels } = useGetChannelsQuery(localStorage.getItem('token'));
-  const { data: messages, refetch: messageRefetch } = useGetMessagesQuery(localStorage.getItem('token'));
+  const { data: channels } = useGetChannelsQuery();
+  const { data: messages, refetch: messageRefetch } = useGetMessagesQuery();
 
   useEffect(() => {
     const handleNewMessage = (message) => {
