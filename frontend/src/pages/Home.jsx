@@ -1,11 +1,27 @@
 import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
-import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
+import { useGetMessagesQuery, useAddMessageMutation } from '../api/HomeMessagesApi.js';
 import sendButtonImg from '../assets/homePage/sendButton.png';
+import addChannelImg from '../assets/homePage/addChannelButton.png';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeChannel } from '../store/slices/app.js';
+import { Formik, Field } from 'formik';
+import { socket } from '../socket.js';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { currentChannel, currentChannelId } = useSelector((state) => state.app);
+
+  const [addMessage] = useAddMessageMutation();
+  const { data: channels } = useGetChannelsQuery();
+  const { data: messages, refetch: messageRefetch } = useGetMessagesQuery();
+
   const createChannel = (channel) => (
     <li className="nav-item w-100" key={channel.id}>
-      <button type="button" className="w-100 rounded-0 text-start btn btn-secondary">
+      <button
+        type="button"
+        onClick={() => dispatch(changeChannel({ name: channel.name, id: channel.id }))}
+        className={`w-100 rounded-0 text-start btn ${currentChannel === channel.name ? 'btn-secondary' : ''}`}
+      >
         <span className="me-1">#</span>
         {channel.name}
       </button>
@@ -14,15 +30,33 @@ const Home = () => {
 
   const createMessage = (message) => (
     <div className="text-break mb-2" key={message.id}>
-      <b>{message.userName}</b>
-      {message.body}
+      <b>{message.username}</b>: {message.body}
     </div>
   );
 
-  const { data: channels } = useGetChannelsQuery();
-  const { data: messages } = useGetMessagesQuery();
+  const getCurrentChannelMessages = (messages, currentChannelId) => {
+    if (!messages) {
+      return [];
+    }
 
-  console.log(messages);
+    const curChannelMessages = messages.filter((message) => message.channelId === currentChannelId);
+    return curChannelMessages;
+  };
+
+  const addMessageHandler = (values, resetForm, channelId) => {
+    const { body } = values;
+    const username = localStorage.getItem('username');
+
+    addMessage({ body, channelId, username });
+    socket.on('newMessage', () => {
+      messageRefetch();
+    });
+
+    resetForm();
+  };
+
+  const currentChannelMessages = getCurrentChannelMessages(messages, currentChannelId);
+  const messageCount = currentChannelMessages.length;
 
   return (
     <div className="container h-100 my-4 overflow-hidden rounded shadow">
@@ -30,7 +64,9 @@ const Home = () => {
         <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
           <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
             <b>Каналы</b>
-            <button type="button" className="p-0 text-primary btn btn-group-vertical"></button>
+            <button type="button" className="p-0 text-primary btn btn-group-vertical">
+              <img src={addChannelImg} alt="Создать новый канал" width="20" height="20" />
+            </button>
           </div>
           <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
             {channels && channels.map((channel) => createChannel(channel))}
@@ -40,22 +76,32 @@ const Home = () => {
           <div className="d-flex flex-column h-100">
             <div className="bg-light mb-4 p-3 shadow-sm small">
               <p className="m-0">
-                <b>#</b>
+                <b># {currentChannel}</b>
               </p>
-              <span className="text-muted"># сообщений</span>
+              <span className="text-muted">{messageCount} сообщений</span>
             </div>
             <div id="messages-box" className="chat-messages overflow-auto px-5">
-              {messages && messages.map((message) => createMessage(message))}
+              {currentChannelMessages && currentChannelMessages.map((message) => createMessage(message))}
             </div>
             <div className="mt-auto px-5 py-3">
-              <form noValidate className="py-1 border rounded-2">
-                <div className="input-group has-validation">
-                  <input type="text" name="body" aria-label="Новое сообщение" placeholder="Введите сообщение..." className="border-0 p-0 ps-2 form-control" />
-                  <button type="submit" className="btn btn-group-vertical">
-                    <img src={sendButtonImg} alt="Отправить сообщение" width="20" height="20" />
-                  </button>
-                </div>
-              </form>
+              <Formik initialValues={{ body: '' }} onSubmit={(values, { resetForm }) => addMessageHandler(values, resetForm, currentChannelId)}>
+                {({ values, handleSubmit }) => (
+                  <form noValidate className="py-1 border rounded-2" onSubmit={handleSubmit}>
+                    <div className="input-group has-validation">
+                      <Field
+                        type="text"
+                        name="body"
+                        aria-label="Новое сообщение"
+                        placeholder="Введите сообщение..."
+                        className="border-0 p-0 ps-2 form-control"
+                      />
+                      <button type="submit" className="btn btn-group-vertical" disabled={!values.body}>
+                        <img src={sendButtonImg} alt="Отправить сообщение" width="20" height="20" />
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </Formik>
             </div>
           </div>
         </div>
