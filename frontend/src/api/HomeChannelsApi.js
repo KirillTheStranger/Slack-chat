@@ -36,4 +36,4 @@ export const homeChannelsApi = createApi({
   }),
 });
 
-export const { useGetChannelsQuery } = homeChannelsApi;
+export const { useGetChannelsQuery, useAddChannelMutation } = homeChannelsApi;
