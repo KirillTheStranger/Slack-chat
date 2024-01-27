@@ -1,5 +1,5 @@
 import { Formik, Field, Form } from 'formik';
-import avatar from '../assets/loginPage/avatar.jpg';
+import FormComponent from '../components/FormComponent';
 import axios from 'axios';
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +15,12 @@ const Login = () => {
   const handleLogin = async (values) => {
     setInvalidation(false);
     try {
-      const { data: { token, username } } = await axios.post('/api/v1/login', { ...values });
+      const {
+        data: { token, username },
+      } = await axios.post('/api/v1/login', { ...values });
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
-  
+
       setAuthStatus(true);
       navigate('/');
     } catch (error) {
@@ -65,24 +67,7 @@ const Login = () => {
     </Formik>
   );
 
-  const container = (
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
-          <div className="card shadow-sm">
-            <div className="card-body row p-5">
-              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src={avatar} alt="Войти" className="rounded-circle" />
-              </div>
-              {form}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  return container;
+  return <FormComponent>{form}</FormComponent>;
 };
 
 export default Login;
