@@ -3,7 +3,7 @@ import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
 import { createContext, useState } from 'react';
-import NavBar from './containers/NavBar.jsx';
+import NavBar from './components/NavBar.jsx';
 
 export const AuthContext = createContext({ authStatus: false, setAuthStatus: () => {} });
 
