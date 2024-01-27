@@ -10,8 +10,8 @@ const initialState = {
     editChannelModalOpened: false,
     removeChannelModalOpened: false,
   },
-  editMenuOpened: false,
-  editMenuId: null,
+  editChannelId: null,
+  channelNames: [],
 };
 
 const appSlice = createSlice({
@@ -25,19 +25,20 @@ const appSlice = createSlice({
       state.currentChannelId = id;
     },
     changeModalState: (state, action) => {
-      const modalName = action.payload;
+      const { modalName, editChannelId } = action.payload;
       state.isModalOpened[`${modalName}ModalOpened`] = !state.isModalOpened[`${modalName}ModalOpened`];
+
+      if (editChannelId || editChannelId === null) {
+        state.editChannelId = editChannelId;
+      }
     },
-    changeEditMenuState: (state) => {
-      state.editMenuOpened = !state.editMenuOpened;
-    },
-    changeEditMenuId: (state, action) => {
-      const id = action.payload;
-      id ? (state.editMenuId = id) : (state.editMenuId = null);
+    setChannels: (state, action) => {
+      const channelNames = action.payload;
+      state.channelNames = [...channelNames];
     },
   },
 });
 
-export const { changeChannel, changeModalState, changeEditMenuState, changeEditMenuId } = appSlice.actions;
+export const { changeChannel, changeModalState, setChannels } = appSlice.actions;
 
 export default appSlice.reducer;
