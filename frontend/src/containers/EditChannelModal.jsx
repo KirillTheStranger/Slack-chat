@@ -1,4 +1,4 @@
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useEditChannelMutation } from '../api/HomeChannelsApi.js';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,6 @@ import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 const EditChannelModal = () => {
   const { channelNames, editChannelId } = useSelector((state) => state.app);
-  console.log(editChannelId);
 
   const channelSchema = Yup.object().shape({
     name: Yup.string()
@@ -32,10 +31,8 @@ const EditChannelModal = () => {
   };
 
   const handleRenameChannel = async (channelName) => {
-    const id = editChannelId;
-    const newChannel = { name: channelName };
-    const response = await editChannel(id, newChannel);
-    console.log(response);
+    const newChannel = { id: editChannelId, name: channelName };
+    await editChannel(newChannel);
     handleCloseModal();
   };
 
