@@ -1,13 +1,13 @@
+import { useEditChannelMutation } from '../../api/HomeChannelsApi.js';
+import { changeModalState } from '../../store/slices/app.js';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
-import * as Yup from 'yup';
-import { useAddChannelMutation } from '../api/HomeChannelsApi.js';
-import { changeModalState, changeChannel } from '../store/slices/app.js';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 
-const AddChannelModal = () => {
-  const { channelNames } = useSelector((state) => state.app);
+const EditChannelModal = () => {
+  const { channelNames, editChannelId } = useSelector((state) => state.app);
 
   const channelSchema = Yup.object().shape({
     name: Yup.string()
@@ -18,7 +18,7 @@ const AddChannelModal = () => {
       .notOneOf(channelNames, 'Должно быть уникальным'),
   });
 
-  const [addChannel] = useAddChannelMutation();
+  const [editChannel] = useEditChannelMutation();
   const dispatch = useDispatch();
   const inputRef = useRef();
 
@@ -27,22 +27,19 @@ const AddChannelModal = () => {
   }, []);
 
   const handleCloseModal = () => {
-    dispatch(changeModalState({ modalName: 'addChannel' }));
+    dispatch(changeModalState({ modalName: 'editChannel', editChannelId: null }));
   };
 
-  const handleAddNewChannel = async (channelName) => {
-    const newChannel = { name: channelName };
-    const response = await addChannel(newChannel);
-    const { name, id } = response.data;
-
+  const handleRenameChannel = async (channelName) => {
+    const newChannel = { id: editChannelId, name: channelName };
+    await editChannel(newChannel);
     handleCloseModal();
-    dispatch(changeChannel({ name, id }));
   };
 
   return (
     <Formik
       initialValues={{ name: '' }}
-      onSubmit={({ name }) => handleAddNewChannel(name)}
+      onSubmit={({ name }) => handleRenameChannel(name)}
       validationSchema={channelSchema}
       validateOnChange={false}
       validateOnBlur={false}
@@ -50,7 +47,7 @@ const AddChannelModal = () => {
       {({ errors, values, handleSubmit, handleChange }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>Переименовать канал</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -87,4 +84,4 @@ const AddChannelModal = () => {
   );
 };
 
-export default AddChannelModal;
+export default EditChannelModal;

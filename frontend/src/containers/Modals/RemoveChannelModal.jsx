@@ -1,6 +1,6 @@
-import { useRemoveChannelMutation } from '../api/HomeChannelsApi.js';
-import { changeChannel } from '../store/slices/app.js';
-import { changeModalState } from '../store/slices/app.js';
+import { changeChannel } from '../../store/slices/app.js';
+import { changeModalState } from '../../store/slices/app.js';
+import { useRemoveChannelMutation } from '../../api/HomeChannelsApi.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 
