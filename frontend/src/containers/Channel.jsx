@@ -22,10 +22,12 @@ const Channel = ({ channel }) => {
             {channel.name}
           </Button>
 
-          <Dropdown.Toggle variant={`${currentChannel === channel.name ? 'secondary' : ''}`} />
+          <Dropdown.Toggle variant={`${currentChannel === channel.name ? 'secondary' : ''}`} className="flex-grow-0 dropdown-toggle-split" />
 
           <Dropdown.Menu>
-            <Dropdown.Item href="#">Удалить</Dropdown.Item>
+            <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ modalName: 'removeChannel', editChannelId: channel.id }))}>
+              Удалить
+            </Dropdown.Item>
             <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ modalName: 'editChannel', editChannelId: channel.id }))}>
               Переименовать
             </Dropdown.Item>
