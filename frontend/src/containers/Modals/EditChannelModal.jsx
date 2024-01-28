@@ -44,7 +44,7 @@ const EditChannelModal = () => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      {({ errors, values, handleSubmit, handleChange }) => (
+      {({ errors, values, handleSubmit, handleChange, isSubmitting }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Переименовать канал</Modal.Title>
@@ -71,7 +71,7 @@ const EditChannelModal = () => {
                   <Button variant="secondary" type="button" className="me-2" onClick={handleCloseModal}>
                     Отменить
                   </Button>
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" disabled={isSubmitting}>
                     Отправить
                   </Button>
                 </FormGroup>

@@ -47,14 +47,14 @@ const AddChannelModal = () => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      {({ errors, values, handleSubmit, handleChange }) => (
+      {({ errors, values, handleSubmit, handleChange, isSubmitting }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Добавить канал</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} disabled>
               <FormGroup>
                 <FormControl
                   name="name"
@@ -74,7 +74,7 @@ const AddChannelModal = () => {
                   <Button variant="secondary" type="button" className="me-2" onClick={handleCloseModal}>
                     Отменить
                   </Button>
-                  <Button variant="primary" type="submit">
+                  <Button variant="primary" type="submit" disabled={isSubmitting}>
                     Отправить
                   </Button>
                 </FormGroup>
