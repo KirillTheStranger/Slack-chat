@@ -9,12 +9,13 @@ import { socket } from '../socket.js';
 import { useEffect } from 'react';
 import AddChannelModal from '../containers/AddChannelModal.jsx';
 import EditChannelModal from '../containers/EditChannelModal.jsx';
+import RemoveChannelModal from '../containers/RemoveChannelModal.jsx';
 import Channel from '../containers/Channel.jsx';
 import Message from '../components/Message.jsx';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { currentChannel, currentChannelId, isModalOpened, ediChannelId } = useSelector((state) => state.app);
+  const { currentChannel, currentChannelId, isModalOpened } = useSelector((state) => state.app);
   const { addChannelModalOpened, editChannelModalOpened, removeChannelModalOpened } = isModalOpened;
 
   const [addMessage] = useAddMessageMutation();
@@ -41,11 +42,13 @@ const Home = () => {
     socket.on('newMessage', handleNewMessage);
     socket.on('newChannel', handleNewChannel);
     socket.on('renameChannel', handleNewChannel);
+    socket.on('removeChannel', handleNewChannel);
 
     return () => {
       socket.off('newMessage', handleNewMessage);
       socket.off('newChannel', handleNewChannel);
       socket.off('renameChannel', handleNewChannel);
+      socket.off('removeChannel', handleNewChannel);
     };
   }, [messageRefetch, channelsRefetch]);
 
@@ -128,6 +131,7 @@ const Home = () => {
       </div>
       {addChannelModalOpened && <AddChannelModal />}
       {editChannelModalOpened && <EditChannelModal />}
+      {removeChannelModalOpened && <RemoveChannelModal />}
     </>
   );
 };
