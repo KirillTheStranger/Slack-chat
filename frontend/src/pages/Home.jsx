@@ -1,6 +1,7 @@
 import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
 import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
-import { useSelector } from 'react-redux';
+import { changeChannel } from '../store/slices/app.js';
+import { useSelector, useDispatch } from 'react-redux';
 import { socket } from '../socket.js';
 import { useEffect } from 'react';
 import AddChannelModal from '../containers/Modals/AddChannelModal.jsx';
@@ -11,33 +12,43 @@ import Messages from '../containers/Messages/Messages.jsx';
 import NewMessage from '../containers/Messages/NewMessage.jsx';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const {
+    currentChannelId,
     isModalOpened: { addChannelModalOpened, editChannelModalOpened, removeChannelModalOpened },
   } = useSelector((state) => state.app);
-  const { data: channels, refetch: channelsRefetch } = useGetChannelsQuery();
+  const { data: channels, refetch: channelsRefetch, status } = useGetChannelsQuery();
   const { data: messages, refetch: messageRefetch } = useGetMessagesQuery();
 
   useEffect(() => {
-    const handleNewMessage = (message) => {
+    const handleNewMessage = () => {
       messageRefetch();
     };
 
-    const handleNewChannel = (channel) => {
+    const handleNewChannel = () => {
+      channelsRefetch();
+    };
+
+    const handleRemoveChannel = ({ id }) => {
+      if (currentChannelId === id) {
+        dispatch(changeChannel({ name: 'general', id: '1' }));
+      }
       channelsRefetch();
     };
 
     socket.on('newMessage', handleNewMessage);
     socket.on('newChannel', handleNewChannel);
     socket.on('renameChannel', handleNewChannel);
-    socket.on('removeChannel', handleNewChannel);
+    socket.on('removeChannel', handleRemoveChannel);
 
     return () => {
       socket.off('newMessage', handleNewMessage);
       socket.off('newChannel', handleNewChannel);
       socket.off('renameChannel', handleNewChannel);
-      socket.off('removeChannel', handleNewChannel);
+      socket.off('removeChannel', handleRemoveChannel);
     };
-  }, [messageRefetch, channelsRefetch]);
+  }, [messageRefetch, channelsRefetch, currentChannelId]);
 
   return (
     <>
@@ -51,7 +62,7 @@ const Home = () => {
       </div>
       {addChannelModalOpened && <AddChannelModal />}
       {editChannelModalOpened && <EditChannelModal />}
-      {removeChannelModalOpened && <RemoveChannelModal />}
+      {removeChannelModalOpened && <RemoveChannelModal status={status} />}
     </>
   );
 };

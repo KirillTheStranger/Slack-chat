@@ -4,7 +4,7 @@ import { useRemoveChannelMutation } from '../../api/HomeChannelsApi.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 
-const RemoveChannelModal = () => {
+const RemoveChannelModal = ({ status }) => {
   const { currentChannelId, editChannelId } = useSelector((state) => state.app);
 
   const [removeChannel] = useRemoveChannelMutation();
@@ -14,7 +14,7 @@ const RemoveChannelModal = () => {
     dispatch(changeModalState({ modalName: 'removeChannel', editChannelId: null }));
   };
 
-  const handleRenameChannel = async () => {
+  const handleRemoveChannel = async () => {
     await removeChannel({ id: editChannelId });
 
     if (currentChannelId === editChannelId) {
@@ -36,7 +36,7 @@ const RemoveChannelModal = () => {
           <Button variant="secondary" type="button" className="me-2" onClick={handleCloseModal}>
             Отменить
           </Button>
-          <Button variant="danger" type="submit" onClick={handleRenameChannel}>
+          <Button variant="danger" type="submit" onClick={handleRemoveChannel} disabled={status === 'pending'}>
             Удалить
           </Button>
         </FormGroup>
