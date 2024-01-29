@@ -1,12 +1,11 @@
 import { useEditChannelMutation } from '../../api/HomeChannelsApi.js';
-import { changeModalState } from '../../store/slices/app.js';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 
-const EditChannelModal = () => {
+const RenameChannel = ({ handleCloseModal }) => {
   const { channelNames, editChannelId } = useSelector((state) => state.app);
 
   const channelSchema = Yup.object().shape({
@@ -19,16 +18,11 @@ const EditChannelModal = () => {
   });
 
   const [editChannel] = useEditChannelMutation();
-  const dispatch = useDispatch();
   const inputRef = useRef();
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  const handleCloseModal = () => {
-    dispatch(changeModalState({ modalName: 'editChannel', editChannelId: null }));
-  };
 
   const handleRenameChannel = async (channelName) => {
     const newChannel = { id: editChannelId, name: channelName };
@@ -84,4 +78,4 @@ const EditChannelModal = () => {
   );
 };
 
-export default EditChannelModal;
+export default RenameChannel;

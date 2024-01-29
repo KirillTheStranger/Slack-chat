@@ -1,18 +1,15 @@
 import { changeChannel } from '../../store/slices/app.js';
-import { changeModalState } from '../../store/slices/app.js';
 import { useRemoveChannelMutation } from '../../api/HomeChannelsApi.js';
+import { useGetChannelsQuery } from '../../api/HomeChannelsApi.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 
-const RemoveChannelModal = ({ status }) => {
+const RemoveChannel = ({ handleCloseModal }) => {
   const { currentChannelId, editChannelId } = useSelector((state) => state.app);
 
   const [removeChannel] = useRemoveChannelMutation();
+  const { status } = useGetChannelsQuery();
   const dispatch = useDispatch();
-
-  const handleCloseModal = () => {
-    dispatch(changeModalState({ modalName: 'removeChannel', editChannelId: null }));
-  };
 
   const handleRemoveChannel = async () => {
     await removeChannel({ id: editChannelId });
@@ -45,4 +42,4 @@ const RemoveChannelModal = ({ status }) => {
   );
 };
 
-export default RemoveChannelModal;
+export default RemoveChannel;

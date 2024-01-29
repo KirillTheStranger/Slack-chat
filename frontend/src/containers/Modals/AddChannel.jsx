@@ -1,12 +1,12 @@
 import { useAddChannelMutation } from '../../api/HomeChannelsApi.js';
-import { changeModalState, changeChannel } from '../../store/slices/app.js';
+import { changeChannel } from '../../store/slices/app.js';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 
-const AddChannelModal = () => {
+const AddChannel = ({ handleCloseModal }) => {
   const { channelNames } = useSelector((state) => state.app);
 
   const channelSchema = Yup.object().shape({
@@ -25,10 +25,6 @@ const AddChannelModal = () => {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-
-  const handleCloseModal = () => {
-    dispatch(changeModalState({ modalName: 'addChannel' }));
-  };
 
   const handleAddNewChannel = async (channelName) => {
     const newChannel = { name: channelName };
@@ -87,4 +83,4 @@ const AddChannelModal = () => {
   );
 };
 
-export default AddChannelModal;
+export default AddChannel;
