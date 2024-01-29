@@ -1,24 +1,37 @@
 import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
 import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
 import { changeChannel } from '../store/slices/app.js';
-import { useSelector, useDispatch } from 'react-redux';
-import { socket } from '../socket.js';
-import { useEffect } from 'react';
-import AddChannelModal from '../containers/Modals/AddChannelModal.jsx';
-import EditChannelModal from '../containers/Modals/EditChannelModal.jsx';
-import RemoveChannelModal from '../containers/Modals/RemoveChannelModal.jsx';
+import { changeModalState } from '../store/slices/app.js';
 import Channels from '../containers/Channels/Channels.jsx';
 import Messages from '../containers/Messages/Messages.jsx';
 import NewMessage from '../containers/Messages/NewMessage.jsx';
+import getModal from '../containers/Modals/index.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { socket } from '../socket.js';
+import { useEffect } from 'react';
+
+const renderModal = ({ isModalOpened, modalType, handleCloseModal }) => {
+  if (!isModalOpened) {
+    return null;
+  }
+
+  const Component = getModal(modalType);
+  return <Component handleCloseModal={handleCloseModal} />;
+};
 
 const Home = () => {
   const dispatch = useDispatch();
 
+  const handleCloseModal = () => {
+    dispatch(changeModalState({ isModalOpened: false, modalType: null, editChannelId: null }));
+  };
+
   const {
     currentChannelId,
-    isModalOpened: { addChannelModalOpened, editChannelModalOpened, removeChannelModalOpened },
+    modals: { isModalOpened, modalType },
   } = useSelector((state) => state.app);
-  const { data: channels, refetch: channelsRefetch, status } = useGetChannelsQuery();
+
+  const { data: channels, refetch: channelsRefetch } = useGetChannelsQuery();
   const { data: messages, refetch: messageRefetch } = useGetMessagesQuery();
 
   useEffect(() => {
@@ -60,9 +73,7 @@ const Home = () => {
           </Messages>
         </div>
       </div>
-      {addChannelModalOpened && <AddChannelModal />}
-      {editChannelModalOpened && <EditChannelModal />}
-      {removeChannelModalOpened && <RemoveChannelModal status={status} />}
+      {renderModal({ isModalOpened, modalType, handleCloseModal })}
     </>
   );
 };

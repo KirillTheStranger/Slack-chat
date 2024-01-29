@@ -5,13 +5,12 @@ const defaultChannelName = 'general';
 const initialState = {
   currentChannel: defaultChannelName,
   currentChannelId: '1',
-  isModalOpened: {
-    addChannelModalOpened: false,
-    editChannelModalOpened: false,
-    removeChannelModalOpened: false,
-  },
   editChannelId: null,
   channelNames: [],
+  modals: {
+    isModalOpened: false,
+    modalType: null,
+  },
 };
 
 const appSlice = createSlice({
@@ -25,8 +24,9 @@ const appSlice = createSlice({
       state.currentChannelId = id;
     },
     changeModalState: (state, action) => {
-      const { modalName, editChannelId } = action.payload;
-      state.isModalOpened[`${modalName}ModalOpened`] = !state.isModalOpened[`${modalName}ModalOpened`];
+      const { isModalOpened, modalType, editChannelId } = action.payload;
+      state.modals.isModalOpened = isModalOpened;
+      state.modals.modalType = modalType;
 
       if (editChannelId || editChannelId === null) {
         state.editChannelId = editChannelId;

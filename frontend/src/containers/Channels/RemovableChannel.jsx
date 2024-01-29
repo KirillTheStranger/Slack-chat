@@ -24,10 +24,10 @@ const RemovableChannel = ({ channel }) => {
       <Dropdown.Toggle variant={`${currentChannel === channel.name ? 'secondary' : ''}`} className="flex-grow-0 dropdown-toggle-split" />
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ modalName: 'removeChannel', editChannelId: channel.id }))}>
+        <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'removing', editChannelId: channel.id }))}>
           Удалить
         </Dropdown.Item>
-        <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ modalName: 'editChannel', editChannelId: channel.id }))}>
+        <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'renaming', editChannelId: channel.id }))}>
           Переименовать
         </Dropdown.Item>
       </Dropdown.Menu>
