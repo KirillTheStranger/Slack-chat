@@ -1,73 +1,87 @@
-import { Formik, Field, Form } from 'formik';
-import FormComponent from '../components/FormComponent';
-import axios from 'axios';
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import LoginComponent from '../components/LoginComponent';
+import avatar from '../assets/loginPage/avatar.jpg';
 import { AuthContext } from '../App';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FormGroup, FormControl, Button, FormFloating, FormLabel } from 'react-bootstrap';
 
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);
 
-  const [isInvalid, setInvalidation] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleLogin = async (values) => {
-    setInvalidation(false);
-    try {
-      const {
-        data: { token, username },
-      } = await axios.post('/api/v1/login', { ...values });
-      localStorage.setItem('token', token);
-      localStorage.setItem('username', username);
+  const loginSchema = Yup.object().shape({
+    username: Yup.string().required('Обязательное поле'),
+    password: Yup.string().required('Обязательное поле'),
+  });
 
-      setAuthStatus(true);
-      navigate('/');
-    } catch (error) {
-      setInvalidation(true);
-      setAuthStatus(false);
-    }
-  };
+  const handleLogin = async (values) => await axios.post('/api/v1/login', { ...values });
 
-  const errorBlock = <div className="invalid-tooltip">Неверные имя пользователя или пароль</div>;
+  return (
+    <LoginComponent avatar={avatar}>
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        onSubmit={(values, { setSubmitting, setErrors }) => {
+          handleLogin(values)
+            .then(({ data }) => {
+              const { token, username } = data;
+              localStorage.setItem('token', token);
+              localStorage.setItem('username', username);
+              setSubmitting(false);
+              setAuthStatus(true);
+              navigate('/');
+            })
+            .catch(() => {
+              setErrors({ password: 'Неверные имя пользователя или пароль' });
+              setSubmitting(false);
+            });
+        }}
+        validationSchema={loginSchema}
+        validateOnChange={false}
+        validateOnBlur={false}
+      >
+        {({ errors, values, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
+          <form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+            <h1 className="text-center mb-4">Войти</h1>
 
-  const form = (
-    <Formik initialValues={{ username: '', password: '' }} onSubmit={(values) => handleLogin(values)}>
-      <Form className="col-12 col-md-6 mt-3 mt-mb-0">
-        <h1 className="text-center mb-4">Войти</h1>
-        <div className="form-floating mb-3">
-          <Field
-            type="name"
-            name="username"
-            className={`form-control ${isInvalid ? 'is-invalid' : ''}`}
-            autoComplete="username"
-            required
-            placeholder="Ваш ник"
-            id="username"
-          />
-          <label htmlFor="username">Ваш ник</label>
-        </div>
-        <div className="form-floating mb-4">
-          <Field
-            type="password"
-            name="password"
-            className={`form-control ${isInvalid ? 'is-invalid' : ''}`}
-            autoComplete="current-password"
-            required
-            placeholder="Пароль"
-            id="password"
-          />
-          <label htmlFor="password">Password</label>
-          {isInvalid && errorBlock}
-        </div>
-        <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
-          Войти
-        </button>
-      </Form>
-    </Formik>
+            <FormFloating className="mb-3">
+              <FormControl
+                name="username"
+                id="username"
+                value={values.username}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.password} // добавил ошибки из password, чтобы не придумывать велосипед
+                autoFocus
+              />
+              <FormLabel htmlFor="username">Имя пользователя</FormLabel>
+            </FormFloating>
+
+            <FormFloating className="mb-3">
+              <FormControl
+                type="password"
+                name="password"
+                id="password"
+                value={values.password}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                isInvalid={!!errors.password}
+              />
+              <FormLabel htmlFor="password">Пароль</FormLabel>
+              <FormGroup className="invalid-tooltip">{errors.password}</FormGroup>
+            </FormFloating>
+
+            <Button type="submit" variant="outline-primary" className="w-100" disabled={isSubmitting}>
+              Войти
+            </Button>
+          </form>
+        )}
+      </Formik>
+    </LoginComponent>
   );
-
-  return <FormComponent>{form}</FormComponent>;
 };
 
 export default Login;
