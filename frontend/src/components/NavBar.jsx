@@ -1,8 +1,10 @@
 import { AuthContext } from '../App';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const NavBar = ({ children }) => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const handleExit = () => {
     localStorage.clear();
@@ -18,7 +20,7 @@ const NavBar = ({ children }) => {
           </a>
           {authStatus && (
             <button className="btn btn-primary" onClick={handleExit}>
-              Выйти
+              {t('homePage.logOutButton')}
             </button>
           )}
         </div>

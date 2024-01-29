@@ -1,8 +1,10 @@
 import Message from '../../components/Message.jsx';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const Messages = ({ messages, children }) => {
   const { currentChannel, currentChannelId } = useSelector((state) => state.app);
+  const { t } = useTranslation();
 
   const getCurrentChannelMessages = (messages, currentChannelId) => {
     if (!messages) {
@@ -23,7 +25,7 @@ const Messages = ({ messages, children }) => {
           <p className="m-0">
             <b># {currentChannel}</b>
           </p>
-          <span className="text-muted">{messageCount} сообщений</span>
+          <span className="text-muted">{t('homePage.messageCount.message', { count: messageCount })}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">
           {currentChannelMessages && currentChannelMessages.map((message) => <Message message={message} key={message.id} />)}

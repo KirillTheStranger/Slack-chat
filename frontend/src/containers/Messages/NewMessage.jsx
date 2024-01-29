@@ -2,10 +2,12 @@ import sendButtonImg from '../../assets/homePage/sendButton.png';
 import { useAddMessageMutation } from '../../api/HomeMessagesApi.js';
 import { useSelector } from 'react-redux';
 import { Formik, Field } from 'formik';
+import { useTranslation } from 'react-i18next';
 
 const NewMessage = () => {
   const [addMessage] = useAddMessageMutation();
   const { currentChannelId } = useSelector((state) => state.app);
+  const { t } = useTranslation();
 
   const handleAddMessage = async (body, channelId, resetForm) => {
     const username = localStorage.getItem('username');
@@ -24,7 +26,7 @@ const NewMessage = () => {
                 type="text"
                 name="body"
                 aria-label="Новое сообщение"
-                placeholder="Введите сообщение..."
+                placeholder={t('homePage.newMessage')}
                 className="border-0 p-0 ps-2 form-control"
                 autoFocus
               />

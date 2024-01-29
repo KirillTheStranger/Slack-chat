@@ -7,15 +7,17 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormGroup, FormControl, Button, FormFloating, FormLabel } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
   const loginSchema = Yup.object().shape({
-    username: Yup.string().required('Обязательное поле'),
-    password: Yup.string().required('Обязательное поле'),
+    username: Yup.string().required(t('loginPage.errors.usernameRequier')),
+    password: Yup.string().required(t('loginPage.errors.passwordRequired')),
   });
 
   const handleLogin = async (values) => await axios.post('/api/v1/login', { ...values });
@@ -35,7 +37,7 @@ const Login = () => {
               navigate('/');
             })
             .catch(() => {
-              setErrors({ password: 'Неверные имя пользователя или пароль' });
+              setErrors({ password: t('loginPage.errors.wrongData') });
               setSubmitting(false);
             });
         }}
@@ -45,7 +47,7 @@ const Login = () => {
       >
         {({ errors, values, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
-            <h1 className="text-center mb-4">Войти</h1>
+            <h1 className="text-center mb-4">{t('loginPage.form.header')}</h1>
 
             <FormFloating className="mb-3">
               <FormControl
@@ -57,7 +59,7 @@ const Login = () => {
                 isInvalid={!!errors.password} // добавил ошибки из password, чтобы не придумывать велосипед
                 autoFocus
               />
-              <FormLabel htmlFor="username">Имя пользователя</FormLabel>
+              <FormLabel htmlFor="username">{t('loginPage.form.username')}</FormLabel>
             </FormFloating>
 
             <FormFloating className="mb-3">
@@ -70,12 +72,12 @@ const Login = () => {
                 onChange={handleChange}
                 isInvalid={!!errors.password}
               />
-              <FormLabel htmlFor="password">Пароль</FormLabel>
+              <FormLabel htmlFor="password">{t('loginPage.form.password')}</FormLabel>
               <FormGroup className="invalid-tooltip">{errors.password}</FormGroup>
             </FormFloating>
 
             <Button type="submit" variant="outline-primary" className="w-100" disabled={isSubmitting}>
-              Войти
+              {t('loginPage.form.loginButton')}
             </Button>
           </form>
         )}

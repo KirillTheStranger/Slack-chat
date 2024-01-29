@@ -5,14 +5,19 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FormGroup, FormControl, Button, FormFloating, FormLabel } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const signupSchema = Yup.object().shape({
-    username: Yup.string().min(3, 'От 3 до 20 символов').max(20, 'От 3 до 20 символов').required('Обязательное поле'),
-    password: Yup.string().min(6, 'Не менее 6 символов').required('Обязательное поле'),
-    confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Пароли должны совпадать'),
+    username: Yup.string()
+      .min(3, t('signupPage.errors.shortUserName'))
+      .max(20, t('signupPage.errors.longUserName'))
+      .required(t('signupPage.errors.requiredField')),
+    password: Yup.string().min(6, t('signupPage.errors.shortPassword')).required(t('signupPage.errors.requiredField')),
+    confirmPassword: Yup.string().oneOf([Yup.ref('password')], t('signupPage.errors.passwordMatch')),
   });
 
   const handleSignup = async (values) => await axios.post('/api/v1/signup', { ...values });
@@ -31,7 +36,7 @@ const SignUp = () => {
               navigate('/');
             })
             .catch(() => {
-              setErrors({ username: ' ', password: ' ', confirmPassword: 'Такой пользователь уже существует' });
+              setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.userExists') });
               setSubmitting(false);
             });
         }}
@@ -41,7 +46,7 @@ const SignUp = () => {
       >
         {({ errors, values, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
           <form onSubmit={handleSubmit} className="w-50">
-            <h1 className="text-center mb-4">Регистрация</h1>
+            <h1 className="text-center mb-4">{t('signupPage.form.header')}</h1>
 
             <FormFloating className="mb-3">
               <FormControl
@@ -53,7 +58,7 @@ const SignUp = () => {
                 isInvalid={!!errors.username}
                 autoFocus
               />
-              <FormLabel htmlFor="username">Имя пользователя</FormLabel>
+              <FormLabel htmlFor="username">{t('signupPage.form.username')}</FormLabel>
               <FormGroup className="invalid-tooltip">{errors.username}</FormGroup>
             </FormFloating>
 
@@ -67,7 +72,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 isInvalid={!!errors.password}
               />
-              <FormLabel htmlFor="password">Пароль</FormLabel>
+              <FormLabel htmlFor="password">{t('signupPage.form.password')}</FormLabel>
               <FormGroup className="invalid-tooltip">{errors.password}</FormGroup>
             </FormFloating>
 
@@ -81,11 +86,11 @@ const SignUp = () => {
                 onChange={handleChange}
                 isInvalid={!!errors.confirmPassword}
               />
-              <FormLabel htmlFor="confirmPassword">Подтвердите пароль</FormLabel>
+              <FormLabel htmlFor="confirmPassword">{t('signupPage.form.passwordConfirm')}</FormLabel>
               <FormGroup className="invalid-tooltip">{errors.confirmPassword}</FormGroup>
             </FormFloating>
             <Button type="submit" variant="outline-primary" className="w-100" disabled={isSubmitting}>
-              Зарегистрироваться
+              {t('signupPage.form.registrationButton')}
             </Button>
           </form>
         )}

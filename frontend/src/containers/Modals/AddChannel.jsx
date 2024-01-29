@@ -5,17 +5,19 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const AddChannel = ({ handleCloseModal }) => {
   const { channelNames } = useSelector((state) => state.app);
+  const { t } = useTranslation();
 
   const channelSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, 'От 3 до 20 символов')
-      .max(20, 'От 3 до 20 символов')
-      .matches(/\S/, 'Обязательное поле')
-      .required('Обязательное поле')
-      .notOneOf(channelNames, 'Должно быть уникальным'),
+      .min(3, t('homePage.modals.errors.shortChannelName'))
+      .max(20, t('homePage.modals.errors.longChannelName'))
+      .matches(/\S/, t('homePage.modals.errors.requiredField'))
+      .required(t('homePage.modals.errors.requiredField'))
+      .notOneOf(channelNames, t('homePage.modals.errors.uniqueName')),
   });
 
   const [addChannel] = useAddChannelMutation();
@@ -46,7 +48,7 @@ const AddChannel = ({ handleCloseModal }) => {
       {({ errors, values, handleSubmit, handleChange, isSubmitting }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Добавить канал</Modal.Title>
+            <Modal.Title>{t('homePage.modals.addNewChannelHeader')}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -63,15 +65,15 @@ const AddChannel = ({ handleCloseModal }) => {
                   ref={inputRef}
                 />
                 <label htmlFor="name" className="visually-hidden">
-                  Имя канала
+                  {t('homePage.modals.newChannelName')}
                 </label>
                 <FormGroup className="invalid-feedback">{errors.name}</FormGroup>
                 <FormGroup className="d-flex justify-content-end">
                   <Button variant="secondary" type="button" className="me-2" onClick={handleCloseModal}>
-                    Отменить
+                    {t('homePage.modals.declineButton')}
                   </Button>
                   <Button variant="primary" type="submit" disabled={isSubmitting}>
-                    Отправить
+                    {t('homePage.modals.confirmButton')}
                   </Button>
                 </FormGroup>
               </FormGroup>
