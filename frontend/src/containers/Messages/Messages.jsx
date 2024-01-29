@@ -1,10 +1,5 @@
+import Message from '../../components/Message.jsx';
 import { useSelector } from 'react-redux';
-
-const Message = ({ message }) => (
-  <div className="text-break mb-2">
-    <b>{message.username}</b>: {message.body}
-  </div>
-);
 
 const Messages = ({ messages, children }) => {
   const { currentChannel, currentChannelId } = useSelector((state) => state.app);
