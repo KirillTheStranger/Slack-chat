@@ -1,15 +1,18 @@
 import SignupComponent from '../components/SignupComponent.jsx';
 import avatar from '../assets/signupPage/avatar.jpg';
+import { AuthContext } from '../App';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FormGroup, FormControl, Button, FormFloating, FormLabel } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useContext } from 'react';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { setAuthStatus } = useContext(AuthContext);
 
   const signupSchema = Yup.object().shape({
     username: Yup.string()
@@ -33,6 +36,7 @@ const SignUp = () => {
               localStorage.setItem('token', token);
               localStorage.setItem('username', username);
               setSubmitting(false);
+              setAuthStatus(true);
               navigate('/');
             })
             .catch(() => {
