@@ -1,6 +1,4 @@
-import avatar from '../assets/loginPage/avatar.jpg';
-
-const FormCoponent = ({ children }) => (
+const LoginComponent = ({ children, avatar }) => (
   <div className="container-fluid h-100">
     <div className="row justify-content-center align-content-center h-100">
       <div className="col-12 col-md-8 col-xxl-6">
@@ -11,10 +9,16 @@ const FormCoponent = ({ children }) => (
             </div>
             {children}
           </div>
+          <div className="card-footer p-4">
+            <div className="text-center">
+              <span>Нет аккаунта? </span>
+              <a href="/signup">Регистрация</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 );
 
-export default FormCoponent;
+export default LoginComponent;
