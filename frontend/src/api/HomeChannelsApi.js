@@ -4,7 +4,7 @@ export const homeChannelsApi = createApi({
   reducerPath: 'channels',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1/channels',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       headers.set('Authorization', `Bearer ${token}`);
       return headers;
@@ -36,4 +36,9 @@ export const homeChannelsApi = createApi({
   }),
 });
 
-export const { useGetChannelsQuery, useAddChannelMutation, useEditChannelMutation, useRemoveChannelMutation } = homeChannelsApi;
+export const {
+  useGetChannelsQuery,
+  useAddChannelMutation,
+  useEditChannelMutation,
+  useRemoveChannelMutation,
+} = homeChannelsApi;

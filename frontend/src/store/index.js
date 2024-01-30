@@ -9,5 +9,6 @@ export default configureStore({
     messages: homeMessagessApi.reducer,
     app: appReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(homeChannelsApi.middleware, homeMessagessApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    .concat(homeChannelsApi.middleware, homeMessagessApi.middleware),
 });

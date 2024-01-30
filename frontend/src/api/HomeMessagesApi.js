@@ -4,7 +4,7 @@ export const homeMessagessApi = createApi({
   reducerPath: 'messages',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1/messages',
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
       headers.set('Authorization', `Bearer ${token}`);
       return headers;
