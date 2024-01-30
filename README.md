@@ -6,17 +6,19 @@
 
 ## Installation
 
-To run this project locally you need to use two terminals.
+To run this project locally use commands below.
 
 ```
-make install \\ to install dependencies
-```
-
-```
-make start-frontend \\ to run app
+make install \\ to install server dependencies
+cd frontend && make install \\ to install frontend dependencies
 ```
 
 ```
+make start \\ to run app
+```
+
+```
+make start-frontend \\ to run frontend
 make start-backend \\ to run server
 ```
 
