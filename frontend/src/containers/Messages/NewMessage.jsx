@@ -45,7 +45,6 @@ const NewMessage = () => {
                 ref={inputRef}
                 disabled={isSubmitting}
               />
-              {console.log(values.body.trim())}
               <button type="submit" className="btn btn-group-vertical" disabled={!values.body.trim()} style={{ border: 'none' }}>
                 <img src={sendButtonImg} alt="Отправить сообщение" width="20" height="20" />
               </button>

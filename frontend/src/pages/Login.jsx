@@ -9,7 +9,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import LoginComponent from '../components/LoginComponent';
 import avatar from '../assets/loginPage/avatar.png';
-import { AuthContext } from '../App';
+import AuthContext from '../context/AuthContext.js';
 
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);
