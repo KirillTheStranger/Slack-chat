@@ -6,6 +6,7 @@ import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 
 const RenameChannel = ({ handleCloseModal }) => {
   const { channelNames, editChannelId } = useSelector((state) => state.app);
@@ -28,7 +29,8 @@ const RenameChannel = ({ handleCloseModal }) => {
   }, []);
 
   const handleRenameChannel = async (channelName) => {
-    const newChannel = { id: editChannelId, name: channelName };
+    const filteredChannelName = filter.clean(channelName);
+    const newChannel = { id: editChannelId, name: filteredChannelName };
     await editChannel(newChannel);
     toast.success(t('homePage.notifications.success.renameChannel'), {
       position: 'top-right',

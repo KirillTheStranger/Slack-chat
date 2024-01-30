@@ -7,6 +7,7 @@ import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 
 const AddChannel = ({ handleCloseModal }) => {
   const { channelNames } = useSelector((state) => state.app);
@@ -30,7 +31,8 @@ const AddChannel = ({ handleCloseModal }) => {
   }, []);
 
   const handleAddNewChannel = async (channelName) => {
-    const newChannel = { name: channelName };
+    const filteredChannelName = filter.clean(channelName);
+    const newChannel = { name: filteredChannelName };
     const response = await addChannel(newChannel);
     const { name, id } = response.data;
 
