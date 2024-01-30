@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const RenameChannel = ({ handleCloseModal }) => {
   const { channelNames, editChannelId } = useSelector((state) => state.app);
@@ -29,6 +30,10 @@ const RenameChannel = ({ handleCloseModal }) => {
   const handleRenameChannel = async (channelName) => {
     const newChannel = { id: editChannelId, name: channelName };
     await editChannel(newChannel);
+    toast.success(t('homePage.notifications.success.renameChannel'), {
+      position: 'top-right',
+      autoClose: 2000,
+    });
     handleCloseModal();
   };
 

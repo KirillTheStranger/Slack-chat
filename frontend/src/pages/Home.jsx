@@ -9,6 +9,8 @@ import getModal from '../containers/Modals/index.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { socket } from '../socket.js';
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const renderModal = ({ isModalOpened, modalType, handleCloseModal }) => {
   if (!isModalOpened) {
@@ -73,6 +75,7 @@ const Home = () => {
           </Messages>
         </div>
       </div>
+      <ToastContainer />
       {renderModal({ isModalOpened, modalType, handleCloseModal })}
     </>
   );

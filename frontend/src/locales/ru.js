@@ -46,6 +46,13 @@ const ru = {
           uniqueName: 'Должно быть уникальным',
         },
       },
+      notifications: {
+        success: {
+          addChannel: 'Канал создан',
+          renameChannel: 'Канал переименован',
+          removeChannel: 'Канал удалён',
+        },
+      },
     },
     signupPage: {
       form: {

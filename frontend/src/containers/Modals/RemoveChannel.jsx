@@ -4,6 +4,7 @@ import { useGetChannelsQuery } from '../../api/HomeChannelsApi.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, FormGroup, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const RemoveChannel = ({ handleCloseModal }) => {
   const { currentChannelId, editChannelId } = useSelector((state) => state.app);
@@ -19,6 +20,11 @@ const RemoveChannel = ({ handleCloseModal }) => {
     if (currentChannelId === editChannelId) {
       dispatch(changeChannel({ name: 'general', id: '1' }));
     }
+
+    toast.success(t('homePage.notifications.success.removeChannel'), {
+      position: 'top-right',
+      autoClose: 2000,
+    });
 
     handleCloseModal();
   };

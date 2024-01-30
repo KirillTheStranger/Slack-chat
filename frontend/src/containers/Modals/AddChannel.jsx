@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 const AddChannel = ({ handleCloseModal }) => {
   const { channelNames } = useSelector((state) => state.app);
@@ -32,6 +33,11 @@ const AddChannel = ({ handleCloseModal }) => {
     const newChannel = { name: channelName };
     const response = await addChannel(newChannel);
     const { name, id } = response.data;
+
+    toast.success(t('homePage.notifications.success.addChannel'), {
+      position: 'top-right',
+      autoClose: 2000,
+    });
 
     handleCloseModal();
     dispatch(changeChannel({ name, id }));
