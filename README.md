@@ -2,4 +2,4 @@
 
 [![Actions Status](https://github.com/KirillTheStranger/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/KirillTheStranger/frontend-project-12/actions)
 
-## [Deploy](https://slack-chat-o667.onrender.com/)
+## [Deploy](https://slack-chat-v2.onrender.com/)
