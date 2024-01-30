@@ -16,7 +16,7 @@ const App = () => {
   filter.loadDictionary('ru');
 
   const rollbarConfig = {
-    accessToken: 'e081cf636bbf48ac95ea490c16121610',
+    accessToken: '15d745d27bd74434b0a931076eb7b6ec',
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',
