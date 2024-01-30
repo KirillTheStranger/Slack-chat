@@ -10,23 +10,27 @@ import { Provider, ErrorBoundary } from '@rollbar/react';
 
 export const AuthContext = createContext({ authStatus: false, setAuthStatus: () => {} });
 
+const rollbarConfig = {
+  accessToken: '15d745d27bd74434b0a931076eb7b6ec',
+  environment: 'testenv',
+};
+
+const TestError = () => {
+  const a = null;
+  return a.hello();
+};
+
 const App = () => {
   const token = localStorage.getItem('token');
   const [authStatus, setAuthStatus] = useState(!!token);
   filter.loadDictionary('ru');
-
-  const rollbarConfig = {
-    accessToken: '15d745d27bd74434b0a931076eb7b6ec',
-    captureUncaught: true,
-    captureUnhandledRejections: true,
-    environment: 'production',
-  };
 
   return (
     <Provider config={rollbarConfig}>
       <ErrorBoundary>
         <AuthContext.Provider value={{ authStatus, setAuthStatus }}>
           <NavBar>
+            <TestError></TestError>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={authStatus ? <Home /> : <Navigate to="/login" />} />
