@@ -12,12 +12,9 @@ export const AuthContext = createContext({ authStatus: false, setAuthStatus: () 
 
 const rollbarConfig = {
   accessToken: '15d745d27bd74434b0a931076eb7b6ec',
-  environment: 'testenv',
-};
-
-const TestError = () => {
-  const a = null;
-  return a.hello();
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  environment: 'production',
 };
 
 const App = () => {
@@ -30,7 +27,6 @@ const App = () => {
       <ErrorBoundary>
         <AuthContext.Provider value={{ authStatus, setAuthStatus }}>
           <NavBar>
-            <TestError></TestError>
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={authStatus ? <Home /> : <Navigate to="/login" />} />
