@@ -21,6 +21,7 @@ const ru = {
     homePage: {
       logOutButton: 'Выйти',
       channels: 'Каналы',
+      setupChannel: 'Управление каналом',
       newMessage: 'Введите сообщение...',
       messageCount: {
         message_zero: '{{count}} сообщений',
