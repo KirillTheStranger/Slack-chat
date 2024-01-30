@@ -1,11 +1,11 @@
-import sendButtonImg from '../../assets/homePage/sendButton.png';
-import { useAddMessageMutation } from '../../api/HomeMessagesApi.js';
 import { Formik } from 'formik';
 import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
 import { FormGroup, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
+import sendButtonImg from '../../assets/homePage/sendButton.png';
+import { useAddMessageMutation } from '../../api/HomeMessagesApi.js';
 
 const NewMessage = () => {
   const [addMessage] = useAddMessageMutation();
@@ -29,7 +29,9 @@ const NewMessage = () => {
   return (
     <FormGroup className="mt-auto px-5 py-3">
       <Formik initialValues={{ body: '' }} onSubmit={({ body }, { resetForm }) => handleAddMessage(body, currentChannelId, resetForm)}>
-        {({ values, handleSubmit, handleChange, isSubmitting }) => (
+        {({
+          values, handleSubmit, handleChange, isSubmitting,
+        }) => (
           <form noValidate className="py-1 border rounded-2" onSubmit={handleSubmit}>
             <FormGroup className="input-group has-validation">
               <FormControl

@@ -1,18 +1,18 @@
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { changeModalState, setChannels } from '../../store/slices/app.js';
 import addChannelImg from '../../assets/homePage/addChannelButton.png';
 import RemovableChannel from './RemovableChannel.jsx';
 import NonRemovableChannel from './NonRemovableChannel.jsx';
-import { changeModalState, setChannels } from '../../store/slices/app.js';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 
 const Channels = ({ channels }) => {
   const dispatch = useDispatch();
 
-  const getChannelNames = (channels) => {
-    if (!channels) {
+  const getChannelNames = (fetchChannels) => {
+    if (!fetchChannels) {
       return [];
     }
-    const channelNames = channels.map(({ name }) => name);
+    const channelNames = fetchChannels.map(({ name }) => name);
     return channelNames;
   };
 
@@ -37,10 +37,10 @@ const Channels = ({ channels }) => {
         </button>
       </div>
       <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels &&
-          channels.map((channel) =>
-            channel.removable ? <RemovableChannel channel={channel} key={channel.id} /> : <NonRemovableChannel channel={channel} key={channel.id} />
-          )}
+        {channels
+         && channels.map((channel) => (channel.removable
+           ? <RemovableChannel channel={channel} key={channel.id} />
+           : <NonRemovableChannel channel={channel} key={channel.id} />))}
       </ul>
     </div>
   );

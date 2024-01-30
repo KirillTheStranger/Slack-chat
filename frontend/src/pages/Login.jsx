@@ -1,13 +1,15 @@
-import LoginComponent from '../components/LoginComponent';
-import avatar from '../assets/loginPage/avatar.png';
-import { AuthContext } from '../App';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FormGroup, FormControl, Button, FormFloating, FormLabel } from 'react-bootstrap';
+import {
+  FormGroup, FormControl, Button, FormFloating, FormLabel,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import LoginComponent from '../components/LoginComponent';
+import avatar from '../assets/loginPage/avatar.png';
+import { AuthContext } from '../App';
 
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);
@@ -20,7 +22,7 @@ const Login = () => {
     password: Yup.string().required(t('loginPage.errors.passwordRequired')),
   });
 
-  const handleLogin = async (values) => await axios.post('/api/v1/login', { ...values });
+  const handleLogin = async (values) => axios.post('/api/v1/login', { ...values });
 
   return (
     <LoginComponent avatar={avatar}>
@@ -45,7 +47,9 @@ const Login = () => {
         validateOnChange={false}
         validateOnBlur={false}
       >
-        {({ errors, values, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
+        {({
+          errors, values, handleSubmit, handleChange, handleBlur, isSubmitting,
+        }) => (
           <form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
             <h1 className="text-center mb-4">{t('loginPage.form.header')}</h1>
 
@@ -56,7 +60,7 @@ const Login = () => {
                 value={values.username}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                isInvalid={!!errors.password} // добавил ошибки из password, чтобы не придумывать велосипед
+                isInvalid={!!errors.password} // ошибки из password, чтобы не придумывать велосипед
                 autoFocus
               />
               <FormLabel htmlFor="username">{t('loginPage.form.username')}</FormLabel>

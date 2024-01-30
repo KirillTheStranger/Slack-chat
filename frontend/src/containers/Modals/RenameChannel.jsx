@@ -1,12 +1,14 @@
-import { useEditChannelMutation } from '../../api/HomeChannelsApi.js';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
-import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
+import {
+  Modal, FormGroup, FormControl, Button,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
+import { useEditChannelMutation } from '../../api/HomeChannelsApi.js';
 
 const RenameChannel = ({ handleCloseModal }) => {
   const { channelNames, editChannelId } = useSelector((state) => state.app);
@@ -47,7 +49,9 @@ const RenameChannel = ({ handleCloseModal }) => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      {({ errors, values, handleSubmit, handleChange, isSubmitting }) => (
+      {({
+        errors, values, handleSubmit, handleChange, isSubmitting,
+      }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>{t('homePage.modals.renameChannelHeader')}</Modal.Title>

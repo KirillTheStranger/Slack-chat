@@ -62,7 +62,7 @@ const Home = () => {
       socket.off('renameChannel', handleNewChannel);
       socket.off('removeChannel', handleRemoveChannel);
     };
-  }, [messageRefetch, channelsRefetch, currentChannelId]);
+  }, [messageRefetch, channelsRefetch, currentChannelId, dispatch]);
 
   return (
     <>

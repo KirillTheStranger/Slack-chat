@@ -1,6 +1,6 @@
-import { changeChannel } from '../../store/slices/app.js';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from 'react-bootstrap/Button';
+import { changeChannel } from '../../store/slices/app.js';
 
 const NonRemovableChannel = ({ channel }) => {
   const dispatch = useDispatch();

@@ -1,13 +1,15 @@
-import SignupComponent from '../components/SignupComponent.jsx';
-import avatar from '../assets/signupPage/avatar.png';
-import { AuthContext } from '../App';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FormGroup, FormControl, Button, FormFloating, FormLabel } from 'react-bootstrap';
+import {
+  FormGroup, FormControl, Button, FormFloating, FormLabel,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { useContext } from 'react';
+import SignupComponent from '../components/SignupComponent.jsx';
+import avatar from '../assets/signupPage/avatar.png';
+import { AuthContext } from '../App';
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const SignUp = () => {
     confirmPassword: Yup.string().oneOf([Yup.ref('password')], t('signupPage.errors.passwordMatch')),
   });
 
-  const handleSignup = async (values) => await axios.post('/api/v1/signup', { ...values });
+  const handleSignup = async (values) => axios.post('/api/v1/signup', { ...values });
 
   return (
     <SignupComponent avatar={avatar}>
@@ -46,9 +48,11 @@ const SignUp = () => {
         }}
         validationSchema={signupSchema}
         validateOnChange={false}
-        validateOnBlur={true}
+        validateOnBlur
       >
-        {({ errors, values, handleSubmit, handleChange, handleBlur, isSubmitting }) => (
+        {({
+          errors, values, handleSubmit, handleChange, handleBlur, isSubmitting,
+        }) => (
           <form onSubmit={handleSubmit} className="w-50">
             <h1 className="text-center mb-4">{t('signupPage.form.header')}</h1>
 

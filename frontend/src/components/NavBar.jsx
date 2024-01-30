@@ -1,6 +1,6 @@
-import { AuthContext } from '../App';
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { AuthContext } from '../App';
 
 const NavBar = ({ children }) => {
   const { authStatus, setAuthStatus } = useContext(AuthContext);
@@ -19,7 +19,7 @@ const NavBar = ({ children }) => {
             Hexlet Chat
           </a>
           {authStatus && (
-            <button className="btn btn-primary" onClick={handleExit}>
+            <button type="button" className="btn btn-primary" onClick={handleExit}>
               {t('homePage.logOutButton')}
             </button>
           )}

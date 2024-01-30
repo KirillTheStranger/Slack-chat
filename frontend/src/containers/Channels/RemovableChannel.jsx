@@ -1,9 +1,8 @@
-import { changeChannel } from '../../store/slices/app.js';
-import { changeModalState } from '../../store/slices/app.js';
 import { useSelector, useDispatch } from 'react-redux';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+import { changeChannel, changeModalState } from '../../store/slices/app.js';
 
 const RemovableChannel = ({ channel }) => {
   const dispatch = useDispatch();

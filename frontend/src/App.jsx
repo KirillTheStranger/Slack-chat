@@ -1,12 +1,14 @@
+import { createContext, useState } from 'react';
+import filter from 'leo-profanity';
+import { Provider, ErrorBoundary } from '@rollbar/react';
+import {
+  BrowserRouter, Routes, Route, Navigate,
+} from 'react-router-dom';
 import Login from './pages/Login.jsx';
 import Home from './pages/Home.jsx';
 import SignUp from './pages/SingUp.jsx';
 import NotFound from './pages/NotFound.jsx';
 import NavBar from './components/NavBar.jsx';
-import { createContext, useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import filter from 'leo-profanity';
-import { Provider, ErrorBoundary } from '@rollbar/react';
 
 export const AuthContext = createContext({ authStatus: false, setAuthStatus: () => {} });
 

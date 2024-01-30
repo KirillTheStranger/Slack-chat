@@ -1,13 +1,15 @@
-import { useAddChannelMutation } from '../../api/HomeChannelsApi.js';
-import { changeChannel } from '../../store/slices/app.js';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
-import { Modal, FormGroup, FormControl, Button } from 'react-bootstrap';
+import {
+  Modal, FormGroup, FormControl, Button,
+} from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
+import { useAddChannelMutation } from '../../api/HomeChannelsApi.js';
+import { changeChannel } from '../../store/slices/app.js';
 
 const AddChannel = ({ handleCloseModal }) => {
   const { channelNames } = useSelector((state) => state.app);
@@ -53,7 +55,9 @@ const AddChannel = ({ handleCloseModal }) => {
       validateOnChange={false}
       validateOnBlur={false}
     >
-      {({ errors, values, handleSubmit, handleChange, isSubmitting }) => (
+      {({
+        errors, values, handleSubmit, handleChange, isSubmitting,
+      }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>{t('homePage.modals.addNewChannelHeader')}</Modal.Title>
