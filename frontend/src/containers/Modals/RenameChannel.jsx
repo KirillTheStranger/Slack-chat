@@ -49,16 +49,7 @@ const RenameChannel = ({ handleCloseModal }) => {
           <Modal.Body>
             <form onSubmit={handleSubmit}>
               <FormGroup>
-                <FormControl
-                  name="name"
-                  id="name"
-                  className="mb-2"
-                  value={values.name}
-                  onChange={handleChange}
-                  isInvalid={!!errors.name}
-                  autoFocus
-                  ref={inputRef}
-                />
+                <FormControl name="name" id="name" className="mb-2" value={values.name} onChange={handleChange} isInvalid={!!errors.name} ref={inputRef} />
                 <label htmlFor="name" className="visually-hidden">
                   {t('homePage.modals.newChannelName')}
                 </label>
