@@ -30,7 +30,7 @@ const NewMessage = () => {
                 className="border-0 p-0 ps-2 form-control"
                 autoFocus
               />
-              <button type="submit" className="btn btn-group-vertical" disabled={!values.body.trim()}>
+              <button type="submit" className="btn btn-group-vertical" disabled={!values.body.trim()} style={{ border: 'none' }}>
                 <img src={sendButtonImg} alt="Отправить сообщение" width="20" height="20" />
               </button>
             </div>
