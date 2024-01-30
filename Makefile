@@ -4,6 +4,11 @@ install:
 build:
 	npm run build
 
-start:
+start-frontend:
+	make -C frontend start
+
+start-backend:
 	npm run start
 
+lint-frontend:
+	make -C frontend lint
