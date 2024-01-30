@@ -1,5 +1,5 @@
 import SignupComponent from '../components/SignupComponent.jsx';
-import avatar from '../assets/signupPage/avatar.jpg';
+import avatar from '../assets/signupPage/avatar.png';
 import { AuthContext } from '../App';
 import { Formik } from 'formik';
 import * as Yup from 'yup';

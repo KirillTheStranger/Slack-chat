@@ -1,5 +1,5 @@
 import LoginComponent from '../components/LoginComponent';
-import avatar from '../assets/loginPage/avatar.jpg';
+import avatar from '../assets/loginPage/avatar.png';
 import { AuthContext } from '../App';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
