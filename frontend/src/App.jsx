@@ -5,12 +5,14 @@ import NotFound from './pages/NotFound.jsx';
 import NavBar from './components/NavBar.jsx';
 import { createContext, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import filter from 'leo-profanity';
 
 export const AuthContext = createContext({ authStatus: false, setAuthStatus: () => {} });
 
 const App = () => {
   const token = localStorage.getItem('token');
   const [authStatus, setAuthStatus] = useState(!!token);
+  filter.loadDictionary('ru');
 
   return (
     <AuthContext.Provider value={{ authStatus, setAuthStatus }}>
