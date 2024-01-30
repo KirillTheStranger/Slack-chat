@@ -1,15 +1,14 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
 import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
-import { changeChannel } from '../store/slices/app.js';
-import { changeModalState } from '../store/slices/app.js';
+import { changeChannel, changeModalState } from '../store/slices/app.js';
 import Channels from '../containers/Channels/Channels.jsx';
 import Messages from '../containers/Messages/Messages.jsx';
 import NewMessage from '../containers/Messages/NewMessage.jsx';
 import getModal from '../containers/Modals/index.js';
-import { useSelector, useDispatch } from 'react-redux';
-import { socket } from '../socket.js';
-import { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
+import socket from '../socket.js';
 import 'react-toastify/dist/ReactToastify.css';
 
 const renderModal = ({ isModalOpened, modalType, handleCloseModal }) => {
@@ -71,7 +70,7 @@ const Home = () => {
         <div className="row h-100 bg-white flex-md-row">
           <Channels channels={channels} />
           <Messages messages={messages}>
-            <NewMessage></NewMessage>
+            <NewMessage />
           </Messages>
         </div>
       </div>
