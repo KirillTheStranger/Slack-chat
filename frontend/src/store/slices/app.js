@@ -34,8 +34,7 @@ const appSlice = createSlice({
         state.editChannelId = editChannelId;
       }
     },
-    setChannels: (state, action) => {
-      const channelNames = action.payload;
+    setChannels: (state, { payload: channelNames }) => {
       state.channelNames = [...channelNames];
     },
   },
