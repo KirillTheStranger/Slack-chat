@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: "error" */
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const defaultChannelName = 'general';
