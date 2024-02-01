@@ -1,14 +1,13 @@
-import { useContext } from 'react';
 import { Provider, ErrorBoundary } from '@rollbar/react';
 import {
-  BrowserRouter, Routes, Route, Navigate,
+  BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import Login from './pages/Login.jsx';
-import Home from './pages/Home.jsx';
 import SignUp from './pages/SingUp.jsx';
 import NotFound from './pages/NotFound.jsx';
+import Home from './pages/Home.jsx';
 import NavBar from './components/NavBar.jsx';
-import AuthContext from './context/AuthContext.js';
+import PrivateRoute from './containers/Routes/PrivateRoute.jsx';
 
 const rollbarConfig = {
   accessToken: '15d745d27bd74434b0a931076eb7b6ec',
@@ -17,26 +16,20 @@ const rollbarConfig = {
   environment: 'production',
 };
 
-const App = () => {
-  const { authStatus } = useContext(AuthContext);
-
-  return (
-    <Provider config={rollbarConfig}>
-      <ErrorBoundary>
-        <NavBar>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={authStatus ? <Home /> : <Navigate to="/login" />} />
-              <Route path="/login" element={authStatus ? <Home /> : <Login />} />
-              <Route path="/signup" element={authStatus ? <Home /> : <SignUp />} />
-              <Route path="*" element={<Navigate to="/404" />} />
-              <Route path="/404" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </NavBar>
-      </ErrorBoundary>
-    </Provider>
-  );
-};
-
+const App = () => (
+  <Provider config={rollbarConfig}>
+    <ErrorBoundary>
+      <NavBar>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </NavBar>
+    </ErrorBoundary>
+  </Provider>
+);
 export default App;
