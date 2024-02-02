@@ -9,15 +9,18 @@ export const homeChannelsApi = createApi({
       headers.set('Authorization', `Bearer ${token}`);
       return headers;
     },
+    tagTypes: ['Channels'],
   }),
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => '',
+      providesTags: ['Channels'],
     }),
     addChannel: builder.mutation({
       query: (newChannel) => ({
         method: 'POST',
         body: newChannel,
+        invalidatesTags: ['Channels'],
       }),
     }),
     editChannel: builder.mutation({
@@ -25,12 +28,14 @@ export const homeChannelsApi = createApi({
         url: id,
         method: 'PATCH',
         body,
+        invalidatesTags: ['Channels'],
       }),
     }),
     removeChannel: builder.mutation({
       query: ({ id }) => ({
         url: id,
         method: 'DELETE',
+        invalidatesTags: ['Channels'],
       }),
     }),
   }),
