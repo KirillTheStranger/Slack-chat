@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import AuthContext from '../context/auth/AuthContext.js';
 
 const NavBar = ({ children }) => {
@@ -15,9 +16,9 @@ const NavBar = ({ children }) => {
     <div className="d-flex flex-column h-100">
       <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
         <div className="container">
-          <a className="navbar-brand" href="/">
+          <Link className="navbar-brand" to="/">
             Hexlet Chat
-          </a>
+          </Link>
           {authStatus && (
             <button type="button" className="btn btn-primary" onClick={handleExit}>
               {t('homePage.logOutButton')}
