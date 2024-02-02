@@ -27,25 +27,27 @@ const SignUp = () => {
 
   const handleSignup = async (values) => axios.post('/api/v1/signup', { ...values });
 
+  const handleFormSubmit = (values, { setSubmitting, setErrors }) => {
+    handleSignup(values)
+      .then(({ data }) => {
+        const { token, username } = data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+        setSubmitting(false);
+        setAuthStatus(true);
+        navigate('/');
+      })
+      .catch(() => {
+        setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.userExists') });
+        setSubmitting(false);
+      });
+  };
+
   return (
     <SignupComponent avatar={avatar}>
       <Formik
         initialValues={{ username: '', password: '', confirmPassword: '' }}
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          handleSignup(values)
-            .then(({ data }) => {
-              const { token, username } = data;
-              localStorage.setItem('token', token);
-              localStorage.setItem('username', username);
-              setSubmitting(false);
-              setAuthStatus(true);
-              navigate('/');
-            })
-            .catch(() => {
-              setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.userExists') });
-              setSubmitting(false);
-            });
-        }}
+        onSubmit={handleFormSubmit}
         validationSchema={signupSchema}
         validateOnChange={false}
         validateOnBlur

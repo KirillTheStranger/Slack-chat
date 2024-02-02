@@ -24,25 +24,28 @@ const Login = () => {
 
   const handleLogin = async (values) => axios.post('/api/v1/login', { ...values });
 
+  const handleFormSubmit = (values, { setSubmitting, setErrors }) => {
+    handleLogin(values)
+      .then(({ data }) => {
+        const { token, username } = data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('username', username);
+        setSubmitting(false);
+        setAuthStatus(true);
+        navigate('/');
+      })
+      .catch((e) => {
+        console.log(e);
+        setErrors({ password: t('loginPage.errors.wrongData') });
+        setSubmitting(false);
+      });
+  };
+
   return (
     <LoginComponent avatar={avatar}>
       <Formik
         initialValues={{ username: '', password: '' }}
-        onSubmit={(values, { setSubmitting, setErrors }) => {
-          handleLogin(values)
-            .then(({ data }) => {
-              const { token, username } = data;
-              localStorage.setItem('token', token);
-              localStorage.setItem('username', username);
-              setSubmitting(false);
-              setAuthStatus(true);
-              navigate('/');
-            })
-            .catch(() => {
-              setErrors({ password: t('loginPage.errors.wrongData') });
-              setSubmitting(false);
-            });
-        }}
+        onSubmit={handleFormSubmit}
         validationSchema={loginSchema}
         validateOnChange={false}
         validateOnBlur={false}
