@@ -16,6 +16,8 @@ const ru = {
         usernameRequired: 'Обязательное поле',
         passwordRequired: 'Обязательное поле',
         wrongData: 'Неверные имя пользователя или пароль',
+        network: 'Ошибка сети',
+        unknown: 'Неизвестная ошибка',
       },
     },
     homePage: {
@@ -70,6 +72,8 @@ const ru = {
         passwordMatch: 'Пароли должны совпадать',
         requiredField: 'Обязательное поле',
         userExists: 'Такой пользователь уже существует',
+        network: 'Ошибка сети',
+        unknown: 'Неизвестная ошибка',
       },
     },
   },
