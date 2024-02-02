@@ -19,16 +19,16 @@ const rollbarConfig = {
 const App = () => (
   <Provider config={rollbarConfig}>
     <ErrorBoundary>
-      <NavBar>
-        <BrowserRouter>
+      <BrowserRouter>
+        <NavBar>
           <Routes>
             <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </NavBar>
+        </NavBar>
+      </BrowserRouter>
     </ErrorBoundary>
   </Provider>
 );
