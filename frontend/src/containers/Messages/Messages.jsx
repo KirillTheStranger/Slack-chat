@@ -9,15 +9,9 @@ const Messages = ({ messages, children }) => {
 
   const messagesBoxRef = useRef(null);
 
-  const getCurrentChannelMessages = (fetchMessages, curChannelId) => {
-    if (!fetchMessages) {
-      return [];
-    }
-
-    const curChannelMessages = fetchMessages
-      .filter((message) => message.channelId === curChannelId);
-    return curChannelMessages;
-  };
+  const getCurrentChannelMessages = (fetchMessages, curChannelId) => (
+    fetchMessages ? fetchMessages.filter((message) => message.channelId === curChannelId) : []
+  );
 
   const currentChannelMessages = getCurrentChannelMessages(messages, currentChannelId);
   const messageCount = currentChannelMessages.length;
