@@ -37,9 +37,24 @@ const SignUp = () => {
         setAuthStatus(true);
         navigate('/');
       })
-      .catch(() => {
-        setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.userExists') });
+      .catch((error) => {
         setSubmitting(false);
+        const { status } = error.response;
+
+        switch (status) {
+          case 0: {
+            setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.network') });
+            break;
+          }
+          case 409: {
+            setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.userExists') });
+            break;
+          }
+          default: {
+            setErrors({ username: ' ', password: ' ', confirmPassword: t('signupPage.errors.unknown') });
+            break;
+          }
+        }
       });
   };
 

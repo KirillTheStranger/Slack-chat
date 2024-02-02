@@ -34,10 +34,24 @@ const Login = () => {
         setAuthStatus(true);
         navigate('/');
       })
-      .catch((e) => {
-        console.log(e);
-        setErrors({ password: t('loginPage.errors.wrongData') });
+      .catch((error) => {
         setSubmitting(false);
+        const { status } = error.response;
+
+        switch (status) {
+          case 0: {
+            setErrors({ password: t('loginPage.errors.network') });
+            break;
+          }
+          case 401: {
+            setErrors({ password: t('loginPage.errors.wrongData') });
+            break;
+          }
+          default: {
+            setErrors({ password: t('loginPage.errors.unknown') });
+            break;
+          }
+        }
       });
   };
 
