@@ -1,8 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
-import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
+import { homeChannelsApi, useGetChannelsQuery } from '../api/HomeChannelsApi.js';
+import { homeMessagessApi, useGetMessagesQuery } from '../api/HomeMessagesApi.js';
 import { changeChannel, changeModalState } from '../store/slices/app.js';
 import Channels from '../containers/Channels/Channels.jsx';
 import Messages from '../containers/Messages/Messages.jsx';
@@ -33,24 +33,27 @@ const Home = () => {
     modals: { isModalOpened, modalType },
   } = useSelector((state) => state.app);
 
-  const { data: channels, refetch: channelsRefetch } = useGetChannelsQuery();
-  const { data: messages, refetch: messageRefetch } = useGetMessagesQuery();
+  const { data: channels } = useGetChannelsQuery();
+  const { data: messages } = useGetMessagesQuery();
 
   useEffect(() => {
-    const handleNewMessage = () => {
-      messageRefetch();
-    };
+    const handleNewMessage = (newMessage) => dispatch(homeMessagessApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
+      draftMessages.push(newMessage);
+    }));
 
-    const handleNewChannel = () => {
-      channelsRefetch();
-    };
+    const handleNewChannel = (newChannel) => dispatch(homeChannelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+      draftChannels.push(newChannel);
+    }));
 
-    const handleRemoveChannel = ({ id }) => {
+    const handleRemoveChannel = ({ id }) => dispatch(homeChannelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+      draftChannels = draftChannels.filter((curChannels) => curChannels.id !== id);
+
       if (currentChannelId === id) {
         dispatch(changeChannel({ name: 'general', id: '1' }));
       }
-      channelsRefetch();
-    };
+
+      return draftChannels;
+    }));
 
     socket.on('newMessage', handleNewMessage);
     socket.on('newChannel', handleNewChannel);
@@ -63,7 +66,7 @@ const Home = () => {
       socket.off('renameChannel', handleNewChannel);
       socket.off('removeChannel', handleRemoveChannel);
     };
-  }, [messageRefetch, channelsRefetch, currentChannelId, dispatch, socket]);
+  }, [currentChannelId, dispatch, socket]);
 
   return (
     <>
