@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
