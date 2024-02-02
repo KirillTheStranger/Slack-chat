@@ -9,7 +9,7 @@ const LoginComponent = ({ children, avatar }) => {
           <div className="card shadow-sm">
             <div className="card-body row p-5">
               <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                <img src={avatar} alt="Войти" className="rounded-circle img-fluid" />
+                <img src={avatar} alt={t('loginPage.loginImg')} className="rounded-circle img-fluid" />
               </div>
               {children}
             </div>

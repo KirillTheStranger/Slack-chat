@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { changeModalState, setChannels } from '../../store/slices/app.js';
 import addChannelImg from '../../assets/homePage/addChannelButton.png';
 import RemovableChannel from './RemovableChannel.jsx';
@@ -7,6 +8,7 @@ import NonRemovableChannel from './NonRemovableChannel.jsx';
 
 const Channels = ({ channels }) => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const getChannelNames = (fetchChannels) => {
     if (!fetchChannels) {
@@ -26,13 +28,13 @@ const Channels = ({ channels }) => {
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>Каналы</b>
+        <b>{t('homePage.channels')}</b>
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
           onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'adding' }))}
         >
-          <img src={addChannelImg} alt="Создать новый канал" width="20" height="20" />
+          <img src={addChannelImg} alt={t('homePage.createNewChannel')} width="20" height="20" />
           <span className="visually-hidden">+</span>
         </button>
       </div>

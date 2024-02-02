@@ -4,6 +4,7 @@ const ru = {
       ru: 'Русский',
     },
     loginPage: {
+      loginImg: 'Войти',
       form: {
         header: 'Войти',
         username: 'Ваш ник',
@@ -23,6 +24,7 @@ const ru = {
     homePage: {
       logOutButton: 'Выйти',
       channels: 'Каналы',
+      createNewChannel: 'Создать новый канал',
       setupChannel: 'Управление каналом',
       newMessage: 'Введите сообщение...',
       messageCount: {
