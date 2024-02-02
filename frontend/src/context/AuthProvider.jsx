@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
 
   const contextValue = useMemo(
     () => ({ authStatus, setAuthStatus, logOut }),
-    [authStatus, setAuthStatus],
+    [authStatus, setAuthStatus, logOut],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
