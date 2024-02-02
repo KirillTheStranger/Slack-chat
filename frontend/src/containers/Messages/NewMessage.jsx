@@ -6,11 +6,13 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import sendButtonImg from '../../assets/homePage/sendButton.png';
 import { useAddMessageMutation } from '../../api/HomeMessagesApi.js';
+import useGetUsername from '../../hooks/useGetUsername.js';
 
 const NewMessage = () => {
   const [addMessage] = useAddMessageMutation();
   const { currentChannelId } = useSelector((state) => state.app);
   const { t } = useTranslation();
+  const username = useGetUsername();
 
   const inputRef = useRef();
 
@@ -18,17 +20,16 @@ const NewMessage = () => {
     inputRef.current.focus();
   });
 
-  const handleAddMessage = async (body, channelId, resetForm) => {
-    const username = localStorage.getItem('username');
+  const handleAddMessage = async (body, channelId, resetForm, userName) => {
     const filteredMessage = filter.clean(body);
 
-    await addMessage({ body: filteredMessage, channelId, username });
+    await addMessage({ body: filteredMessage, channelId, userName });
     resetForm();
   };
 
   return (
     <FormGroup className="mt-auto px-5 py-3">
-      <Formik initialValues={{ body: '' }} onSubmit={({ body }, { resetForm }) => handleAddMessage(body, currentChannelId, resetForm)}>
+      <Formik initialValues={{ body: '' }} onSubmit={({ body }, { resetForm }) => handleAddMessage(body, currentChannelId, resetForm, username)}>
         {({
           values, handleSubmit, handleChange, isSubmitting,
         }) => (
