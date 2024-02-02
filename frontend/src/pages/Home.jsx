@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { useGetChannelsQuery } from '../api/HomeChannelsApi.js';
 import { useGetMessagesQuery } from '../api/HomeMessagesApi.js';
@@ -8,7 +8,7 @@ import Channels from '../containers/Channels/Channels.jsx';
 import Messages from '../containers/Messages/Messages.jsx';
 import NewMessage from '../containers/Messages/NewMessage.jsx';
 import getModal from '../containers/Modals/index.js';
-import socket from '../socket.js';
+import SocketContext from '../context/socket/SocketContext.js';
 import 'react-toastify/dist/ReactToastify.css';
 
 const renderModal = ({ isModalOpened, modalType, handleCloseModal }) => {
@@ -22,6 +22,7 @@ const renderModal = ({ isModalOpened, modalType, handleCloseModal }) => {
 
 const Home = () => {
   const dispatch = useDispatch();
+  const socket = useContext(SocketContext);
 
   const handleCloseModal = () => {
     dispatch(changeModalState({ isModalOpened: false, modalType: null, editChannelId: null }));
