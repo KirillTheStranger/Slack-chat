@@ -39,8 +39,7 @@ const Messages = ({ messages, children }) => {
         </div>
         <div ref={messagesBoxRef} id="messages-box" className="chat-messages overflow-auto px-5">
           {currentChannelMessages
-            && currentChannelMessages
-              .map((message) => <Message message={message} key={message.id} />)}
+            ?.map((message) => <Message message={message} key={message.id} />)}
         </div>
         {children}
       </div>
