@@ -35,8 +35,7 @@ const AddChannel = ({ handleCloseModal }) => {
   const handleAddNewChannel = async (channelName) => {
     const filteredChannelName = filter.clean(channelName);
     const newChannel = { name: filteredChannelName };
-    const response = await addChannel(newChannel);
-    const { name, id } = response.data;
+    const { data: { name, id } } = await addChannel(newChannel);
 
     toast.success(t('homePage.notifications.success.addChannel'), {
       position: 'top-right',
