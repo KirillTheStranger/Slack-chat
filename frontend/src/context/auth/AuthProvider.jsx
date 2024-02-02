@@ -1,8 +1,9 @@
 import { useState, useMemo, useCallback } from 'react';
 import AuthContext from './AuthContext.js';
+import useGetToken from '../../hooks/useGetToken.js';
 
 const AuthProvider = ({ children }) => {
-  const token = localStorage.getItem('token');
+  const token = useGetToken();
   const [authStatus, setAuthenticationStatus] = useState(!!token);
 
   const setAuthStatus = useCallback((status) => setAuthenticationStatus(status), []);
