@@ -12,7 +12,7 @@ const NewMessage = () => {
   const [addMessage] = useAddMessageMutation();
   const { currentChannelId } = useSelector((state) => state.app);
   const { t } = useTranslation();
-  const username = useGetUsername();
+  const userName = useGetUsername();
 
   const inputRef = useRef();
 
@@ -20,16 +20,16 @@ const NewMessage = () => {
     inputRef.current.focus();
   });
 
-  const handleAddMessage = async (body, channelId, resetForm, userName) => {
+  const handleAddMessage = async (body, channelId, resetForm, username) => {
     const filteredMessage = filter.clean(body);
 
-    await addMessage({ body: filteredMessage, channelId, userName });
+    await addMessage({ body: filteredMessage, channelId, username });
     resetForm();
   };
 
   return (
     <FormGroup className="mt-auto px-5 py-3">
-      <Formik initialValues={{ body: '' }} onSubmit={({ body }, { resetForm }) => handleAddMessage(body, currentChannelId, resetForm, username)}>
+      <Formik initialValues={{ body: '' }} onSubmit={({ body }, { resetForm }) => handleAddMessage(body, currentChannelId, resetForm, userName)}>
         {({
           values, handleSubmit, handleChange, isSubmitting,
         }) => (
