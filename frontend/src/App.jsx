@@ -10,7 +10,7 @@ import NavBar from './components/NavBar.jsx';
 import PrivateRoute from './containers/Routes/PrivateRoute.jsx';
 
 const rollbarConfig = {
-  accessToken: '15d745d27bd74434b0a931076eb7b6ec',
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
   captureUncaught: true,
   captureUnhandledRejections: true,
   environment: 'production',
