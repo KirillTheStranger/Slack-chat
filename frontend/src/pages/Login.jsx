@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useContext } from 'react';
@@ -65,9 +65,9 @@ const Login = () => {
         validateOnBlur={false}
       >
         {({
-          errors, values, handleSubmit, handleChange, handleBlur, isSubmitting,
+          errors, values, handleChange, handleBlur, isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+          <Form className="col-12 col-md-6 mt-3 mt-mb-0">
             <h1 className="text-center mb-4">{t('loginPage.form.header')}</h1>
 
             <FormFloating className="mb-3">
@@ -100,7 +100,7 @@ const Login = () => {
             <Button type="submit" variant="outline-primary" className="w-100" disabled={isSubmitting}>
               {t('loginPage.form.loginButton')}
             </Button>
-          </form>
+          </Form>
         )}
       </Formik>
     </LoginComponent>

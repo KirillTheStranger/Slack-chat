@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -68,9 +68,9 @@ const SignUp = () => {
         validateOnBlur
       >
         {({
-          errors, values, handleSubmit, handleChange, handleBlur, isSubmitting,
+          errors, values, handleChange, handleBlur, isSubmitting,
         }) => (
-          <form onSubmit={handleSubmit} className="w-50">
+          <Form className="w-50">
             <h1 className="text-center mb-4">{t('signupPage.form.header')}</h1>
 
             <FormFloating className="mb-3">
@@ -117,7 +117,7 @@ const SignUp = () => {
             <Button type="submit" variant="outline-primary" className="w-100" disabled={isSubmitting}>
               {t('signupPage.form.registrationButton')}
             </Button>
-          </form>
+          </Form>
         )}
       </Formik>
     </SignupComponent>
