@@ -4,7 +4,7 @@ import { I18nextProvider } from 'react-i18next';
 import App from './App.jsx';
 import store from './store/index.js';
 import i18n from './i18next.js';
-import AuthProvider from './context/AuthProvider.jsx';
+import AuthProvider from './context/auth/AuthProvider.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const init = () => (
