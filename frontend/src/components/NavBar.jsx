@@ -3,11 +3,11 @@ import { useTranslation } from 'react-i18next';
 import AuthContext from '../context/AuthContext.js';
 
 const NavBar = ({ children }) => {
-  const { authStatus, setAuthStatus } = useContext(AuthContext);
+  const { authStatus, setAuthStatus, logOut } = useContext(AuthContext);
   const { t } = useTranslation();
 
   const handleExit = () => {
-    localStorage.clear();
+    logOut();
     setAuthStatus(false);
   };
 
