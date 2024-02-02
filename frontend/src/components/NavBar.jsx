@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import AuthContext from '../context/AuthContext.js';
+import AuthContext from '../context/auth/AuthContext.js';
 
 const NavBar = ({ children }) => {
   const { authStatus, setAuthStatus, logOut } = useContext(AuthContext);

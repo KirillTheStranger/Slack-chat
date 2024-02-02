@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useContext } from 'react';
 import SignupComponent from '../components/SignupComponent.jsx';
 import avatar from '../assets/signupPage/avatar.png';
-import AuthContext from '../context/AuthContext.js';
+import AuthContext from '../context/auth/AuthContext.js';
 
 const SignUp = () => {
   const navigate = useNavigate();
