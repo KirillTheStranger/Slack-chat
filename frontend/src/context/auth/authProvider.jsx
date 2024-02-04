@@ -7,7 +7,10 @@ const AuthProvider = ({ children }) => {
   const [authStatus, setAuthenticationStatus] = useState(!!token);
 
   const setAuthStatus = useCallback((status) => setAuthenticationStatus(status), []);
-  const logOut = useCallback(() => localStorage.clear(), []);
+  const logOut = useCallback(() => {
+    localStorage.clear();
+    setAuthStatus(false);
+  }, [setAuthStatus]);
 
   const contextValue = useMemo(
     () => ({ authStatus, setAuthStatus, logOut }),

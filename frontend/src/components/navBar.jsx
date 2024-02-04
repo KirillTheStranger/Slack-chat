@@ -4,13 +4,10 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../context/auth/authContext.js';
 
 const NavBar = ({ children }) => {
-  const { authStatus, setAuthStatus, logOut } = useContext(AuthContext);
+  const { authStatus, logOut } = useContext(AuthContext);
   const { t } = useTranslation();
 
-  const handleExit = () => {
-    logOut();
-    setAuthStatus(false);
-  };
+  const handleExit = () => logOut();
 
   return (
     <div className="d-flex flex-column h-100">
