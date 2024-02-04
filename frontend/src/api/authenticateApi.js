@@ -8,10 +8,11 @@ export const authenticateApi = createApi({
     prepareHeaders: useSetHeaders,
   }),
   endpoints: (builder) => ({
-    login: builder.query({
-      query: () => ({
+    login: builder.mutation({
+      query: (user) => ({
         url: 'login',
-        method: 'GET',
+        method: 'POST',
+        body: user,
       }),
     }),
     signUp: builder.mutation({
@@ -24,4 +25,4 @@ export const authenticateApi = createApi({
   }),
 });
 
-export const { useLoginQuery, useSignUpMutation } = authenticateApi;
+export const { useLoginMutation, useSignUpMutation } = authenticateApi;
