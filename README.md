@@ -1,6 +1,6 @@
 # Chat
 
-### [Check this out on Render deploy](https://frontend-project-12-production-b37b.up.railway.app/)
+### [Check it out on Railway deploy](https://frontend-project-12-production-b37b.up.railway.app/)
 
 [![Actions Status](https://github.com/KirillTheStranger/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/KirillTheStranger/frontend-project-12/actions) [![Actions Status](https://github.com/KirillTheStranger/frontend-project-12/actions/workflows/eslint-check.yml/badge.svg)](https://github.com/KirillTheStranger/frontend-project-12/actions)
 
