@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
@@ -50,7 +50,7 @@ const RenameChannel = ({ handleCloseModal }) => {
       validateOnBlur={false}
     >
       {({
-        errors, values, handleSubmit, handleChange, isSubmitting,
+        errors, values, handleChange, isSubmitting,
       }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
@@ -58,7 +58,7 @@ const RenameChannel = ({ handleCloseModal }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <form onSubmit={handleSubmit}>
+            <Form>
               <FormGroup>
                 <FormControl name="name" id="name" className="mb-2" value={values.name} onChange={handleChange} isInvalid={!!errors.name} ref={inputRef} />
                 <label htmlFor="name" className="visually-hidden">
@@ -74,7 +74,7 @@ const RenameChannel = ({ handleCloseModal }) => {
                   </Button>
                 </FormGroup>
               </FormGroup>
-            </form>
+            </Form>
           </Modal.Body>
         </Modal>
       )}

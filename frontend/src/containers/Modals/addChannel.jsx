@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useEffect } from 'react';
@@ -55,7 +55,7 @@ const AddChannel = ({ handleCloseModal }) => {
       validateOnBlur={false}
     >
       {({
-        errors, values, handleSubmit, handleChange, isSubmitting,
+        errors, values, handleChange, isSubmitting,
       }) => (
         <Modal show centered onHide={handleCloseModal}>
           <Modal.Header closeButton>
@@ -63,7 +63,7 @@ const AddChannel = ({ handleCloseModal }) => {
           </Modal.Header>
 
           <Modal.Body>
-            <form onSubmit={handleSubmit} disabled>
+            <Form disabled>
               <FormGroup>
                 <FormControl name="name" id="name" className="mb-2" value={values.name} onChange={handleChange} isInvalid={!!errors.name} ref={inputRef} />
                 <label htmlFor="name" className="visually-hidden">
@@ -79,7 +79,7 @@ const AddChannel = ({ handleCloseModal }) => {
                   </Button>
                 </FormGroup>
               </FormGroup>
-            </form>
+            </Form>
           </Modal.Body>
         </Modal>
       )}
