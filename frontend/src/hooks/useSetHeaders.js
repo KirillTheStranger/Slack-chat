@@ -1,7 +1,7 @@
-import useGetToken from './useGetToken';
+import useLocalStorage from './useLocalstorage';
 
 const useSetHeaders = (headers) => {
-  const token = useGetToken();
+  const token = useLocalStorage('get')('token');
   headers.set('Authorization', `Bearer ${token}`);
   return headers;
 };

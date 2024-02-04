@@ -1,16 +1,17 @@
 import { useState, useMemo, useCallback } from 'react';
 import AuthContext from './authContext.js';
-import useGetToken from '../../hooks/useGetToken.js';
+import useLocalStorage from '../../hooks/useLocalstorage.js';
 
 const AuthProvider = ({ children }) => {
-  const token = useGetToken();
+  const token = useLocalStorage('get')('token');
+  const clearLocalStorage = useLocalStorage('clear');
   const [isAuthed, setAuthentication] = useState(!!token);
 
   const setAuth = useCallback((status) => setAuthentication(status), []);
   const logOut = useCallback(() => {
-    localStorage.clear();
+    clearLocalStorage();
     setAuth(false);
-  }, [setAuth]);
+  }, [setAuth, clearLocalStorage]);
 
   const contextValue = useMemo(
     () => ({ isAuthed, setAuth, logOut }),
