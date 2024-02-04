@@ -66,6 +66,7 @@ const ru = {
         password: 'Пароль',
         passwordConfirm: 'Подтвердите пароль',
         registrationButton: 'Зарегистрироваться',
+        image: 'Войти',
       },
       errors: {
         shortUserName: 'От 3 до 20 символов',
