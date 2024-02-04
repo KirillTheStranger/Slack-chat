@@ -1,7 +1,6 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
@@ -9,10 +8,10 @@ import {
 import { useTranslation } from 'react-i18next';
 import LoginComponent from '../components/loginComponent';
 import avatar from '../assets/loginPage/avatar.png';
-import AuthContext from '../context/auth/authContext.js';
+import useAuthContext from '../hooks/useAuthContext.js';
 
 const Login = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuthContext();
   const { t } = useTranslation();
 
   const navigate = useNavigate();

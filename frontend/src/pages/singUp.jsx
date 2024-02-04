@@ -6,15 +6,14 @@ import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { useContext } from 'react';
 import SignupComponent from '../components/signupComponent.jsx';
 import avatar from '../assets/signupPage/avatar.png';
-import AuthContext from '../context/auth/authContext.js';
+import useAuthContext from '../hooks/useAuthContext.js';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuthContext();
 
   const signupSchema = Yup.object().shape({
     username: Yup.string()
