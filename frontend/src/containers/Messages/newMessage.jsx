@@ -46,7 +46,7 @@ const NewMessage = () => {
                 ref={inputRef}
                 disabled={isSubmitting}
               />
-              <button type="submit" className="btn btn-group-vertical" disabled={!values.body.trim()} style={{ border: 'none' }}>
+              <button type="submit" className="btn btn-group-vertical" disabled={!values.body.trim() || isSubmitting} style={{ border: 'none' }}>
                 <img src={sendButtonImg} alt={t('homePage.sendMessageButton')} width="20" height="20" />
               </button>
             </FormGroup>
