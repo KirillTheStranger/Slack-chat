@@ -26,7 +26,9 @@ const ru = {
       channels: 'Каналы',
       createNewChannel: 'Создать новый канал',
       setupChannel: 'Управление каналом',
-      newMessage: 'Введите сообщение...',
+      newMessagePlaceholder: 'Введите сообщение...',
+      sendMessageButton: 'Отправить сообщение',
+      newMessageInput: 'Новое сообщение',
       messageCount: {
         message_zero: '{{count}} сообщений',
         message_one: '{{count}} сообщение',
