@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Message from '../../components/message.jsx';
@@ -9,11 +9,11 @@ const Messages = ({ messages, children }) => {
 
   const messagesBoxRef = useRef(null);
 
-  const getCurrentChannelMessages = (fetchMessages, curChannelId) => (
-    fetchMessages ? fetchMessages.filter((message) => message.channelId === curChannelId) : []
+  const currentChannelMessages = useMemo(
+    () => messages?.filter((message) => message.channelId === currentChannelId) ?? [],
+    [messages, currentChannelId],
   );
 
-  const currentChannelMessages = getCurrentChannelMessages(messages, currentChannelId);
   const messageCount = currentChannelMessages.length;
 
   useEffect(() => {
