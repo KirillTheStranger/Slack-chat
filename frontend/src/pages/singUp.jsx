@@ -14,7 +14,7 @@ import AuthContext from '../context/auth/authContext.js';
 const SignUp = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { setAuthStatus } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
 
   const signupSchema = Yup.object().shape({
     username: Yup.string()
@@ -34,7 +34,7 @@ const SignUp = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
         setSubmitting(false);
-        setAuthStatus(true);
+        setAuth(true);
         navigate('/');
       })
       .catch((error) => {

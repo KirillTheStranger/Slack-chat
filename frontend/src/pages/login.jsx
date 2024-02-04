@@ -12,7 +12,7 @@ import avatar from '../assets/loginPage/avatar.png';
 import AuthContext from '../context/auth/authContext.js';
 
 const Login = () => {
-  const { setAuthStatus } = useContext(AuthContext);
+  const { setAuth } = useContext(AuthContext);
   const { t } = useTranslation();
 
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const Login = () => {
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
         setSubmitting(false);
-        setAuthStatus(true);
+        setAuth(true);
         navigate('/');
       })
       .catch((error) => {

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import AuthContext from '../context/auth/authContext.js';
 
 const NavBar = ({ children }) => {
-  const { authStatus, logOut } = useContext(AuthContext);
+  const { isAuthed, logOut } = useContext(AuthContext);
   const { t } = useTranslation();
 
   const handleExit = () => logOut();
@@ -16,7 +16,7 @@ const NavBar = ({ children }) => {
           <Link className="navbar-brand" to="/">
             Hexlet Chat
           </Link>
-          {authStatus && (
+          {isAuthed && (
             <button type="button" className="btn btn-primary" onClick={handleExit}>
               {t('homePage.logOutButton')}
             </button>

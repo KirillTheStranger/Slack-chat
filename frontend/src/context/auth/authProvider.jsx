@@ -4,17 +4,17 @@ import useGetToken from '../../hooks/useGetToken.js';
 
 const AuthProvider = ({ children }) => {
   const token = useGetToken();
-  const [authStatus, setAuthenticationStatus] = useState(!!token);
+  const [isAuthed, setAuthentication] = useState(!!token);
 
-  const setAuthStatus = useCallback((status) => setAuthenticationStatus(status), []);
+  const setAuth = useCallback((status) => setAuthentication(status), []);
   const logOut = useCallback(() => {
     localStorage.clear();
-    setAuthStatus(false);
-  }, [setAuthStatus]);
+    setAuth(false);
+  }, [setAuth]);
 
   const contextValue = useMemo(
-    () => ({ authStatus, setAuthStatus, logOut }),
-    [authStatus, setAuthStatus, logOut],
+    () => ({ isAuthed, setAuth, logOut }),
+    [isAuthed, setAuth, logOut],
   );
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
