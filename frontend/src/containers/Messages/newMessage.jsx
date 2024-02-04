@@ -5,7 +5,7 @@ import { FormGroup, FormControl } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import sendButtonImg from '../../assets/homePage/sendButton.png';
-import { useAddMessageMutation } from '../../api/HomeMessagesApi.js';
+import { useAddMessageMutation } from '../../api/homeMessagesApi.js';
 import useGetUsername from '../../hooks/useGetUsername.js';
 
 const NewMessage = () => {

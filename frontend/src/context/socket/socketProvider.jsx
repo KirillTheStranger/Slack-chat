@@ -1,4 +1,4 @@
-import SocketContext from './SocketContext.js';
+import SocketContext from './socketContext.js';
 
 const SocketProvider = ({ socket, children }) => (
   <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

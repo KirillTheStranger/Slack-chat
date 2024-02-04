@@ -7,9 +7,9 @@ import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import LoginComponent from '../components/LoginComponent';
+import LoginComponent from '../components/loginComponent';
 import avatar from '../assets/loginPage/avatar.png';
-import AuthContext from '../context/auth/AuthContext.js';
+import AuthContext from '../context/auth/authContext.js';
 
 const Login = () => {
   const { setAuthStatus } = useContext(AuthContext);

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { homeChannelsApi } from '../api/HomeChannelsApi';
-import { homeMessagessApi } from '../api/HomeMessagesApi';
+import { homeChannelsApi } from '../api/homeChannelsApi';
+import { homeMessagessApi } from '../api/homeMessagesApi';
 import appReducer from './slices/app.js';
 
 export default configureStore({

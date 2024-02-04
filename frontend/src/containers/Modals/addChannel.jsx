@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
-import { useAddChannelMutation } from '../../api/HomeChannelsApi.js';
+import { useAddChannelMutation } from '../../api/homeChannelsApi.js';
 import { changeChannel } from '../../store/slices/app.js';
 
 const AddChannel = ({ handleCloseModal }) => {

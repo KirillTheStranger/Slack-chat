@@ -8,7 +8,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
-import { useEditChannelMutation } from '../../api/HomeChannelsApi.js';
+import { useEditChannelMutation } from '../../api/homeChannelsApi.js';
 
 const RenameChannel = ({ handleCloseModal }) => {
   const { channelNames, editChannelId } = useSelector((state) => state.app);

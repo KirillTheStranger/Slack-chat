@@ -3,14 +3,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { homeChannelsApi, useGetChannelsQuery } from '../api/HomeChannelsApi.js';
-import { homeMessagessApi, useGetMessagesQuery } from '../api/HomeMessagesApi.js';
+import { homeChannelsApi, useGetChannelsQuery } from '../api/homeChannelsApi.js';
+import { homeMessagessApi, useGetMessagesQuery } from '../api/homeMessagesApi.js';
 import { changeChannel, changeModalState } from '../store/slices/app.js';
-import Channels from '../containers/Channels/Channels.jsx';
-import Messages from '../containers/Messages/Messages.jsx';
-import NewMessage from '../containers/Messages/NewMessage.jsx';
+import Channels from '../containers/Channels/channels.jsx';
+import Messages from '../containers/Messages/messages.jsx';
+import NewMessage from '../containers/Messages/newMessage.jsx';
 import getModal from '../containers/Modals/index.js';
-import SocketContext from '../context/socket/SocketContext.js';
+import SocketContext from '../context/socket/socketContext.js';
 import 'react-toastify/dist/ReactToastify.css';
 
 const renderModal = ({ isModalOpened, modalType, handleCloseModal }) => {

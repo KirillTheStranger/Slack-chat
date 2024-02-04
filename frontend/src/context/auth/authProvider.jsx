@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import AuthContext from './AuthContext.js';
+import AuthContext from './authContext.js';
 import useGetToken from '../../hooks/useGetToken.js';
 
 const AuthProvider = ({ children }) => {

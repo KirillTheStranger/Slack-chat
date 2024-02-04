@@ -3,7 +3,7 @@ import { Modal, FormGroup, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { changeChannel } from '../../store/slices/app.js';
-import { useRemoveChannelMutation, useGetChannelsQuery } from '../../api/HomeChannelsApi.js';
+import { useRemoveChannelMutation, useGetChannelsQuery } from '../../api/homeChannelsApi.js';
 
 const RemoveChannel = ({ handleCloseModal }) => {
   const { currentChannelId, editChannelId } = useSelector((state) => state.app);

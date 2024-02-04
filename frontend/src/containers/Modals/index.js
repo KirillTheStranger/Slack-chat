@@ -1,6 +1,6 @@
-import AddChannel from './AddChannel.jsx';
-import RenameChannel from './RenameChannel.jsx';
-import RemoveChannel from './RemoveChannel.jsx';
+import AddChannel from './addChannel.jsx';
+import RenameChannel from './renameChannel.jsx';
+import RemoveChannel from './removeChannel.jsx';
 
 const modals = {
   adding: AddChannel,
