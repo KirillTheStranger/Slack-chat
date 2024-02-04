@@ -3,7 +3,7 @@ import {
   BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import Login from './pages/login.jsx';
-import SignUp from './pages/singUp.jsx';
+import SignUp from './pages/signUp.jsx';
 import NotFound from './pages/notFound.jsx';
 import Home from './pages/home.jsx';
 import NavBar from './components/navBar.jsx';
