@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { changeModalState, setChannels } from '../../store/slices/app.js';
 import addChannelImg from '../../assets/homePage/addChannelButton.png';
 import RemovableChannel from './removableChannel.jsx';
-import NonRemovableChannel from './nonRemovableChannel.jsx';
+import NonRemovableChannel from '../../components/nonRemovableChannel.jsx';
 
 const Channels = ({ channels }) => {
   const dispatch = useDispatch();
