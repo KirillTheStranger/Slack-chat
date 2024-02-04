@@ -1,14 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import useSetHeaders from '../hooks/useSetHeaders';
 
 export const homeChannelsApi = createApi({
   reducerPath: 'channels',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1/channels',
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
-      headers.set('Authorization', `Bearer ${token}`);
-      return headers;
-    },
+    prepareHeaders: useSetHeaders,
     tagTypes: ['Channels'],
   }),
   endpoints: (builder) => ({

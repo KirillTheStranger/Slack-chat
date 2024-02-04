@@ -1,14 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import useSetHeaders from '../hooks/useSetHeaders';
 
 export const homeMessagessApi = createApi({
   reducerPath: 'messages',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1/messages',
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('token');
-      headers.set('Authorization', `Bearer ${token}`);
-      return headers;
-    },
+    prepareHeaders: useSetHeaders,
   }),
   endpoints: (builder) => ({
     getMessages: builder.query({
@@ -27,7 +24,7 @@ export const homeMessagessApi = createApi({
         body: editedMessage,
       }),
     }),
-    removeChannel: builder.mutation({
+    removeMessage: builder.mutation({
       query: (id) => ({
         url: id,
         method: 'DELETE',
