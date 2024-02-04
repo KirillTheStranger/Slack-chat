@@ -1,6 +1,5 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
@@ -9,10 +8,15 @@ import { useTranslation } from 'react-i18next';
 import LoginComponent from '../components/loginComponent';
 import avatar from '../assets/loginPage/avatar.png';
 import useAuthContext from '../hooks/useAuthContext.js';
+import { useLoginMutation } from '../api/authenticateApi.js';
+import useLocalStorage from '../hooks/useLocalstorage.js';
 
 const Login = () => {
   const { setAuth } = useAuthContext();
   const { t } = useTranslation();
+  const [login] = useLoginMutation();
+
+  const setLocalStorageItem = useLocalStorage('set');
 
   const navigate = useNavigate();
 
@@ -21,37 +25,36 @@ const Login = () => {
     password: Yup.string().required(t('loginPage.errors.passwordRequired')),
   });
 
-  const handleLogin = async (values) => axios.post('/api/v1/login', { ...values });
+  const handleFormSubmit = async (values, { setSubmitting, setErrors }) => {
+    try {
+      const { token, username } = await login({ ...values }).unwrap();
 
-  const handleFormSubmit = (values, { setSubmitting, setErrors }) => {
-    handleLogin(values)
-      .then(({ data }) => {
-        const { token, username } = data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('username', username);
-        setSubmitting(false);
-        setAuth(true);
-        navigate('/');
-      })
-      .catch((error) => {
-        setSubmitting(false);
-        const { status } = error.response;
+      setLocalStorageItem('token', token);
+      setLocalStorageItem('username', username);
 
-        switch (status) {
-          case 0: {
-            setErrors({ password: t('loginPage.errors.network') });
-            break;
-          }
-          case 401: {
-            setErrors({ password: t('loginPage.errors.wrongData') });
-            break;
-          }
-          default: {
-            setErrors({ password: t('loginPage.errors.unknown') });
-            break;
-          }
+      setSubmitting(false);
+      setAuth(true);
+
+      navigate('/');
+    } catch (error) {
+      setSubmitting(false);
+      const { status } = error;
+
+      switch (status) {
+        case 0: {
+          setErrors({ password: t('loginPage.errors.network') });
+          break;
         }
-      });
+        case 401: {
+          setErrors({ password: t('loginPage.errors.wrongData') });
+          break;
+        }
+        default: {
+          setErrors({ password: t('loginPage.errors.unknown') });
+          break;
+        }
+      }
+    }
   };
 
   return (
