@@ -28,10 +28,10 @@ const RemovableChannel = ({ channel }) => {
 
       <Dropdown.Menu>
         <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'removing', editChannelId: channel.id }))}>
-          Удалить
+          {t('homePage.modals.deleteDropMenu')}
         </Dropdown.Item>
         <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'renaming', editChannelId: channel.id }))}>
-          Переименовать
+          {t('homePage.modals.renameDropMenu')}
         </Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
