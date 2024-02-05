@@ -3,7 +3,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useTranslation } from 'react-i18next';
 import { changeModalState } from '../../store/slices/app.js';
-import ChannelButton from './channelButton.jsx';
+import ChannelButton from './ChannelButton.jsx';
 
 const RemovableChannel = ({ channel }) => {
   const dispatch = useDispatch();

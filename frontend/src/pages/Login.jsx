@@ -5,7 +5,7 @@ import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import LoginComponent from '../components/loginComponent';
+import LoginComponent from '../components/LoginComponent.jsx';
 import avatar from '../assets/loginPage/avatar.png';
 import useAuthContext from '../hooks/useAuthContext.js';
 import { useLoginMutation } from '../api/authenticateApi.js';

@@ -1,10 +1,10 @@
 import ReactDOM from 'react-dom/client';
-import init from './init.jsx';
+import Init from './Init.jsx';
 
 const runApp = async () => {
   const root = ReactDOM.createRoot(document.getElementById('chat'));
 
-  root.render(await init());
+  root.render(await Init());
 };
 
 runApp();

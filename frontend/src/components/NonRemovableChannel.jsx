@@ -1,4 +1,4 @@
-import ChannelButton from '../containers/Channels/channelButton.jsx';
+import ChannelButton from '../containers/Channels/ChannelButton.jsx';
 
 const NonRemovableChannel = ({ channel }) => <ChannelButton channel={channel} />;
 

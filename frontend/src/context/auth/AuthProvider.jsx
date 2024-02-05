@@ -1,5 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
-import AuthContext from './authContext.js';
+import AuthContext from './AuthContext.js';
 import useLocalStorage from '../../hooks/useLocalstorage.js';
 
 const AuthProvider = ({ children }) => {
@@ -13,10 +13,7 @@ const AuthProvider = ({ children }) => {
     setAuth(false);
   }, [setAuth, clearLocalStorage]);
 
-  const contextValue = useMemo(
-    () => ({ isAuthed, setAuth, logOut }),
-    [isAuthed, setAuth, logOut],
-  );
+  const contextValue = useMemo(() => ({ isAuthed, setAuth, logOut }), [isAuthed, setAuth, logOut]);
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 };

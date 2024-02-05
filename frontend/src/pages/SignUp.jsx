@@ -5,7 +5,7 @@ import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import SignupComponent from '../components/signupComponent.jsx';
+import SignupComponent from '../components/SignupComponent.jsx';
 import avatar from '../assets/signupPage/avatar.png';
 import useAuthContext from '../hooks/useAuthContext.js';
 import { useSignUpMutation } from '../api/authenticateApi.js';

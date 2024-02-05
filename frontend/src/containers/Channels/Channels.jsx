@@ -3,8 +3,8 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { changeModalState, setChannels } from '../../store/slices/app.js';
 import addChannelImg from '../../assets/homePage/addChannelButton.png';
-import RemovableChannel from './removableChannel.jsx';
-import NonRemovableChannel from '../../components/nonRemovableChannel.jsx';
+import RemovableChannel from './RemovableChannel.jsx';
+import NonRemovableChannel from '../../components/NonRemovableChannel.jsx';
 
 const Channels = ({ channels }) => {
   const dispatch = useDispatch();

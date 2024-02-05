@@ -4,14 +4,14 @@ import { I18nextProvider } from 'react-i18next';
 import { io } from 'socket.io-client';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
-import App from './app.jsx';
+import App from './App.jsx';
 import store from './store/index.js';
-import AuthProvider from './context/auth/authProvider.jsx';
-import SocketProvider from './context/socket/socketProvider.jsx';
+import AuthProvider from './context/auth/AuthProvider.jsx';
+import SocketProvider from './context/socket/SocketProvider.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import resources from './locales/index.js';
 
-const init = async () => {
+const Init = async () => {
   const socket = io();
 
   const i18n = i18next.createInstance();
@@ -43,4 +43,4 @@ const init = async () => {
   );
 };
 
-export default init;
+export default Init;

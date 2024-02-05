@@ -1,7 +1,7 @@
 import { useRef, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Message from '../../components/message.jsx';
+import Message from '../../components/Message.jsx';
 
 const Messages = ({ messages, children }) => {
   const { currentChannel, currentChannelId } = useSelector((state) => state.app);
