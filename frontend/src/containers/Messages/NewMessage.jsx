@@ -6,13 +6,12 @@ import { useTranslation } from 'react-i18next';
 import filter from 'leo-profanity';
 import sendButtonImg from '../../assets/homePage/sendButton.png';
 import { useAddMessageMutation } from '../../api/homeMessagesApi.js';
-import useLocalStorage from '../../hooks/useLocalstorage.js';
 
 const NewMessage = () => {
   const [addMessage] = useAddMessageMutation();
   const { currentChannelId } = useSelector((state) => state.app);
+  const { username } = useSelector((state) => state.auth);
   const { t } = useTranslation();
-  const username = useLocalStorage('get')('username');
 
   const inputRef = useRef();
 

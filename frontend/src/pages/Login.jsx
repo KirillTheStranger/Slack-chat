@@ -4,17 +4,21 @@ import { useNavigate } from 'react-router-dom';
 import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
 } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import LoginComponent from '../components/LoginComponent.jsx';
 import avatar from '../assets/loginPage/avatar.png';
 import useAuthContext from '../hooks/useAuthContext.js';
 import { useLoginMutation } from '../api/authenticateApi.js';
 import useLocalStorage from '../hooks/useLocalstorage.js';
+import { setUserData } from '../store/slices/auth.js';
 
 const Login = () => {
   const { setAuth } = useAuthContext();
   const { t } = useTranslation();
   const [login] = useLoginMutation();
+
+  const dispatch = useDispatch();
 
   const setLocalStorageItem = useLocalStorage('set');
 
@@ -31,6 +35,7 @@ const Login = () => {
 
       setLocalStorageItem('token', token);
       setLocalStorageItem('username', username);
+      dispatch(setUserData({ token, username }));
 
       setSubmitting(false);
       setAuth(true);
