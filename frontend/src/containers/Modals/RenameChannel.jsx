@@ -12,7 +12,7 @@ import { useEditChannelMutation } from '../../api/homeChannelsApi.js';
 
 const RenameChannel = ({ handleCloseModal }) => {
   const { channelNames, editChannelId, editChannelName } = useSelector((state) => state.app);
-  console.log(editChannelName);
+
   const { t } = useTranslation();
 
   const channelSchema = Yup.object().shape({
