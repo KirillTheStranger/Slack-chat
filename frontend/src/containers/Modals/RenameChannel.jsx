@@ -11,7 +11,8 @@ import filter from 'leo-profanity';
 import { useEditChannelMutation } from '../../api/homeChannelsApi.js';
 
 const RenameChannel = ({ handleCloseModal }) => {
-  const { channelNames, editChannelId } = useSelector((state) => state.app);
+  const { channelNames, editChannelId, editChannelName } = useSelector((state) => state.app);
+  console.log(editChannelName);
   const { t } = useTranslation();
 
   const channelSchema = Yup.object().shape({
@@ -28,6 +29,7 @@ const RenameChannel = ({ handleCloseModal }) => {
 
   useEffect(() => {
     inputRef.current.focus();
+    inputRef.current.select();
   }, []);
 
   const handleRenameChannel = async (channelName) => {
@@ -43,7 +45,7 @@ const RenameChannel = ({ handleCloseModal }) => {
 
   return (
     <Formik
-      initialValues={{ name: '' }}
+      initialValues={{ name: editChannelName }}
       onSubmit={({ name }) => handleRenameChannel(name)}
       validationSchema={channelSchema}
       validateOnChange={false}

@@ -11,19 +11,45 @@ const RemovableChannel = ({ channel }) => {
 
   const { currentChannel } = useSelector((state) => state.app);
 
+  const isModalOpened = true;
+  const editChannelId = channel.id;
+  const editChannelName = channel.name;
+
   return (
     <Dropdown as={ButtonGroup} className="d-flex">
       <ChannelButton channel={channel} />
 
-      <Dropdown.Toggle variant={`${currentChannel === channel.name ? 'secondary' : ''}`} className="flex-grow-0 dropdown-toggle-split">
+      <Dropdown.Toggle
+        variant={`${currentChannel === channel.name ? 'secondary' : ''}`}
+        className="flex-grow-0 dropdown-toggle-split"
+      >
         <span className="visually-hidden">{t('homePage.setupChannel')}</span>
       </Dropdown.Toggle>
 
       <Dropdown.Menu>
-        <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'removing', editChannelId: channel.id }))}>
+        <Dropdown.Item
+          href="#"
+          onClick={() => dispatch(
+            changeModalState({
+              isModalOpened,
+              modalType: 'removing',
+              editChannelId,
+            }),
+          )}
+        >
           {t('homePage.modals.deleteDropMenu')}
         </Dropdown.Item>
-        <Dropdown.Item href="#" onClick={() => dispatch(changeModalState({ isModalOpened: true, modalType: 'renaming', editChannelId: channel.id }))}>
+        <Dropdown.Item
+          href="#"
+          onClick={() => dispatch(
+            changeModalState({
+              isModalOpened,
+              modalType: 'renaming',
+              editChannelId,
+              editChannelName,
+            }),
+          )}
+        >
           {t('homePage.modals.renameDropMenu')}
         </Dropdown.Item>
       </Dropdown.Menu>
