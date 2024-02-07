@@ -8,7 +8,7 @@ import sendButtonImg from '../../assets/homePage/sendButton.png';
 import { useAddMessageMutation } from '../../api/homeMessagesApi.js';
 
 const NewMessage = () => {
-  const [addMessage] = useAddMessageMutation();
+  const [addMessage, { data }] = useAddMessageMutation();
   const { currentChannelId } = useSelector((state) => state.app);
   const { username } = useSelector((state) => state.auth);
   const { t } = useTranslation();
@@ -17,17 +17,13 @@ const NewMessage = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [currentChannelId]);
+  }, [currentChannelId, data]);
 
   const handleAddMessage = async (body, resetForm) => {
     const filteredMessage = filter.clean(body);
 
     await addMessage({ body: filteredMessage, channelId: currentChannelId, username });
     resetForm();
-
-    setTimeout(() => {
-      inputRef.current.focus();
-    }, 0);
   };
 
   return (
