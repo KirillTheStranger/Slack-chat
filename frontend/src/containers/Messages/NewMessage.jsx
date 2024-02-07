@@ -24,6 +24,10 @@ const NewMessage = () => {
 
     await addMessage({ body: filteredMessage, channelId: currentChannelId, username });
     resetForm();
+
+    setTimeout(() => {
+      inputRef.current.focus();
+    }, 0);
   };
 
   return (
