@@ -5,17 +5,21 @@ import {
   FormGroup, FormControl, Button, FormFloating, FormLabel,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import SignupComponent from '../components/SignupComponent.jsx';
 import avatar from '../assets/signupPage/avatar.png';
 import useAuthContext from '../hooks/useAuthContext.js';
 import { useSignUpMutation } from '../api/authenticateApi.js';
 import useLocalStorage from '../hooks/useLocalstorage.js';
+import { setUserData } from '../store/slices/auth.js';
 
 const SignUp = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { setAuth } = useAuthContext();
   const [signUp] = useSignUpMutation();
+
+  const dispatch = useDispatch();
 
   const setLocalStorageItem = useLocalStorage('set');
 
@@ -34,6 +38,7 @@ const SignUp = () => {
 
       setLocalStorageItem('token', token);
       setLocalStorageItem('username', username);
+      dispatch(setUserData({ token, username }));
 
       setSubmitting(false);
       setAuth(true);
